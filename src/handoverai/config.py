@@ -127,8 +127,13 @@ def from_dict(data: dict) -> Config:
         raise ValueError("configuration must be a YAML mapping")
     d = copy.deepcopy(data)
     try:
-        for key, cls in (("simulation", Simulation), ("road", Road), ("channel", Channel),
-                         ("handover", Handover), ("predictive", Predictive)):
+        for key, cls in (
+            ("simulation", Simulation),
+            ("road", Road),
+            ("channel", Channel),
+            ("handover", Handover),
+            ("predictive", Predictive),
+        ):
             d[key] = _record(cls, d.get(key, {}), key)
         for key, cls in (("vehicles", Vehicle), ("towers", Tower), ("blockers", Blocker)):
             rows = d.get(key, [])
@@ -220,13 +225,19 @@ def _validate(c: Config):
     for f in fields(c.predictive):
         _finite(getattr(c.predictive, f.name), "predictive." + f.name)
     p = c.predictive
-    if p.horizon_s < s.dt_s or not math.isclose(p.horizon_s / s.dt_s,
-            round(p.horizon_s / s.dt_s), abs_tol=1e-8):
+    if p.horizon_s < s.dt_s or not math.isclose(
+        p.horizon_s / s.dt_s, round(p.horizon_s / s.dt_s), abs_tol=1e-8
+    ):
         raise ValueError("predictive.horizon_s must be a positive integer multiple of dt_s")
     if p.q_min_dbm >= p.q_max_dbm:
         raise ValueError("predictive quality bounds must increase")
-    for name in ("weight_quality", "weight_outage", "weight_switch", "score_margin",
-                 "location_noise_m"):
+    for name in (
+        "weight_quality",
+        "weight_outage",
+        "weight_switch",
+        "score_margin",
+        "location_noise_m",
+    ):
         _finite(getattr(p, name), "predictive." + name, minimum=0)
     if p.weight_quality + p.weight_outage <= 0:
         raise ValueError("predictive: at least one quality/outage weight must be positive")

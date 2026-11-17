@@ -10,18 +10,37 @@ def best_usable(links: dict[str, LinkSample]) -> str | None:
 
 
 class Controller:
-    def __init__(self, settings: Handover, vehicle_id: str, policy: str,
-                 initial_tower: str | None = None):
+    def __init__(
+        self, settings: Handover, vehicle_id: str, policy: str, initial_tower: str | None = None
+    ):
         self.settings, self.vehicle_id, self.policy = settings, vehicle_id, policy
-        self.state = HandoverState(State.ATTACHED if initial_tower else State.DISCONNECTED,
-                                   serving=initial_tower,
-                                   last_change_s=0.0 if initial_tower else float("-inf"))
+        self.state = HandoverState(
+            State.ATTACHED if initial_tower else State.DISCONNECTED,
+            serving=initial_tower,
+            last_change_s=0.0 if initial_tower else float("-inf"),
+        )
         self.events: list[HandoverEvent] = []
 
-    def emit(self, now: float, target: str | None, status: str, reason: str,
-             completed_s: float | None = None):
-        self.events.append(HandoverEvent(now, self.vehicle_id, self.policy, self.state.serving,
-                                         target, status, reason, completed_s))
+    def emit(
+        self,
+        now: float,
+        target: str | None,
+        status: str,
+        reason: str,
+        completed_s: float | None = None,
+    ):
+        self.events.append(
+            HandoverEvent(
+                now,
+                self.vehicle_id,
+                self.policy,
+                self.state.serving,
+                target,
+                status,
+                reason,
+                completed_s,
+            )
+        )
 
     def settle(self, now: float, links: dict[str, LinkSample]):
         s = self.state
@@ -35,8 +54,11 @@ class Controller:
                 s.state = State.ATTACHED
             else:
                 self.emit(now, s.pending, "failed", "target unusable at completion", now)
-                s.state = State.ATTACHED if s.serving in links and links[s.serving].usable \
+                s.state = (
+                    State.ATTACHED
+                    if s.serving in links and links[s.serving].usable
                     else State.DISCONNECTED
+                )
                 if s.state == State.DISCONNECTED:
                     s.serving = None
             s.pending, s.completes_at = None, None

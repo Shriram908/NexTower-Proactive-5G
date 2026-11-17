@@ -23,8 +23,9 @@ def load_trace(path: str | Path, cfg: Config) -> tuple[PositionSample, ...]:
         previous = (-1.0, "")
         for line, row in enumerate(reader, 2):
             try:
-                values = {key: row[key] if key == "vehicle_id" else float(row[key])
-                          for key in COLUMNS}
+                values = {
+                    key: row[key] if key == "vehicle_id" else float(row[key]) for key in COLUMNS
+                }
                 sample = PositionSample(**values)
                 key = (sample.time_s, sample.vehicle_id)
                 if any(not math.isfinite(v) for v in values.values() if not isinstance(v, str)):
@@ -45,8 +46,10 @@ def load_trace(path: str | Path, cfg: Config) -> tuple[PositionSample, ...]:
                 raise ValueError(f"trace line {line}: {exc}") from exc
     for vid, observed in ticks.items():
         if not observed or observed != list(range(observed[-1] + 1)):
-            raise ValueError(f"trace {vid}: require a contiguous prefix starting at t=0; "
-                             "permanent departure is allowed, gaps/re-entry are not")
+            raise ValueError(
+                f"trace {vid}: require a contiguous prefix starting at t=0; "
+                "permanent departure is allowed, gaps/re-entry are not"
+            )
     return tuple(samples)
 
 

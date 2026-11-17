@@ -13,8 +13,11 @@ def along_route(path: tuple[tuple[float, float], ...], offset_m: float):
         length = distance(a, b)
         if remaining < length:
             ratio = remaining / length
-            return (a[0] + ratio * (b[0] - a[0]), a[1] + ratio * (b[1] - a[1])), \
-                math.atan2(b[1] - a[1], b[0] - a[0]), False
+            return (
+                (a[0] + ratio * (b[0] - a[0]), a[1] + ratio * (b[1] - a[1])),
+                math.atan2(b[1] - a[1], b[0] - a[0]),
+                False,
+            )
         remaining -= length
     a, b = path[-2:]
     return b, math.atan2(b[1] - a[1], b[0] - a[0]), True
@@ -26,5 +29,8 @@ def position_at(vehicle: Vehicle, time_s: float) -> PositionSample:
 
 
 def synthetic_trace(cfg: Config) -> tuple[PositionSample, ...]:
-    return tuple(position_at(v, round(tick * cfg.simulation.dt_s, 10))
-                 for tick in range(cfg.ticks) for v in sorted(cfg.vehicles, key=lambda v: v.id))
+    return tuple(
+        position_at(v, round(tick * cfg.simulation.dt_s, 10))
+        for tick in range(cfg.ticks)
+        for v in sorted(cfg.vehicles, key=lambda v: v.id)
+    )

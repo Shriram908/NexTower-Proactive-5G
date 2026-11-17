@@ -9,8 +9,7 @@ def flag(value) -> bool:
     return value is True or value == 1 or value == "1" or value == "True"
 
 
-def calculate(rows: list[dict], events: list[dict], dt_s: float,
-              pingpong_window_s: float) -> dict:
+def calculate(rows: list[dict], events: list[dict], dt_s: float, pingpong_window_s: float) -> dict:
     if not rows:
         raise ValueError("metrics require at least one observation")
     by_vehicle = defaultdict(list)
@@ -32,13 +31,21 @@ def calculate(rows: list[dict], events: list[dict], dt_s: float,
     pingpongs = 0
     for e in completed:
         previous = history.get(e["vehicle_id"])
-        if previous and previous["from_tower"] == e["to_tower"] \
-                and previous["to_tower"] == e["from_tower"] \
-                and float(e["time_s"]) - float(previous["time_s"]) <= pingpong_window_s:
+        if (
+            previous
+            and previous["from_tower"] == e["to_tower"]
+            and previous["to_tower"] == e["from_tower"]
+            and float(e["time_s"]) - float(previous["time_s"]) <= pingpong_window_s
+        ):
             pingpongs += 1
         history[e["vehicle_id"]] = e
-    good = [float(r["serving_quality_dbm"]) for r in rows if not flag(r["outage"])
-            and r["state"] == "ATTACHED" and r["serving_quality_dbm"] not in (None, "")]
+    good = [
+        float(r["serving_quality_dbm"])
+        for r in rows
+        if not flag(r["outage"])
+        and r["state"] == "ATTACHED"
+        and r["serving_quality_dbm"] not in (None, "")
+    ]
     outage_steps = sum(flag(r["outage"]) for r in rows)
     return {
         "duration_s": max(float(r["time_s"]) for r in rows) + dt_s,
@@ -73,8 +80,13 @@ def paired_summary(deltas: list[float]) -> dict:
     rng = random.Random(2026)
     samples = sorted(mean(rng.choices(deltas, k=len(deltas))) for _ in range(10000))
     avg = mean(deltas)
-    return {"n": len(deltas), "mean_delta": avg,
-            "std_delta": math.sqrt(sum((x - avg)**2 for x in deltas) / (len(deltas)-1))
-            if len(deltas) > 1 else 0.0,
-            "ci95_low": samples[249], "ci95_high": samples[9749],
-            "method": "paired percentile bootstrap, 10000 draws, RNG seed 2026"}
+    return {
+        "n": len(deltas),
+        "mean_delta": avg,
+        "std_delta": math.sqrt(sum((x - avg) ** 2 for x in deltas) / (len(deltas) - 1))
+        if len(deltas) > 1
+        else 0.0,
+        "ci95_low": samples[249],
+        "ci95_high": samples[9749],
+        "method": "paired percentile bootstrap, 10000 draws, RNG seed 2026",
+    }

@@ -5,15 +5,25 @@ import pytest
 from handoverai.config import from_dict, load_config
 
 
-@pytest.mark.parametrize("section,key,value", [
-    ("simulation", "duration_s", 0), ("simulation", "duration_s", -1),
-    ("simulation", "dt_s", 0), ("simulation", "dt_s", -0.5),
-    ("predictive", "horizon_s", 0), ("predictive", "horizon_s", 0.7),
-    ("channel", "d0_m", 0), ("channel", "shadowing_std_db", -1),
-    ("channel", "min_rx_dbm", float("nan")), ("handover", "ttt_s", -1),
-    ("simulation", "duration_s", True), ("road", "x_max_m", 0),
-    ("predictive", "weight_switch", -0.1), ("channel", "tx_power_watts", 3),
-])
+@pytest.mark.parametrize(
+    "section,key,value",
+    [
+        ("simulation", "duration_s", 0),
+        ("simulation", "duration_s", -1),
+        ("simulation", "dt_s", 0),
+        ("simulation", "dt_s", -0.5),
+        ("predictive", "horizon_s", 0),
+        ("predictive", "horizon_s", 0.7),
+        ("channel", "d0_m", 0),
+        ("channel", "shadowing_std_db", -1),
+        ("channel", "min_rx_dbm", float("nan")),
+        ("handover", "ttt_s", -1),
+        ("simulation", "duration_s", True),
+        ("road", "x_max_m", 0),
+        ("predictive", "weight_switch", -0.1),
+        ("channel", "tx_power_watts", 3),
+    ],
+)
 def test_t01_invalid_numeric_and_units(data, section, key, value):
     data[section][key] = value
     with pytest.raises(ValueError):
@@ -50,8 +60,17 @@ def test_negative_speed_and_invalid_route(data):
         from_dict(data)
 
 
-@pytest.mark.parametrize("key,value", [("schema_version", 2), ("scenario_id", "../unsafe"),
-    ("seed", -1), ("seed", True), ("policies", ["oracle"]), ("vehicles", [])])
+@pytest.mark.parametrize(
+    "key,value",
+    [
+        ("schema_version", 2),
+        ("scenario_id", "../unsafe"),
+        ("seed", -1),
+        ("seed", True),
+        ("policies", ["oracle"]),
+        ("vehicles", []),
+    ],
+)
 def test_top_level_validation(data, key, value):
     data[key] = value
     with pytest.raises(ValueError):
@@ -67,6 +86,7 @@ def test_roundtrip_hash_and_no_mutation(data):
 
 def test_overrides_and_bad_yaml(tmp_path):
     from conftest import ROOT
+
     c = load_config(ROOT / "configs/blocked_corridor.yaml", ["seed=7", "predictive.horizon_s=3"])
     assert c.seed == 7 and c.predictive.horizon_s == 3
     with pytest.raises(ValueError, match="override"):

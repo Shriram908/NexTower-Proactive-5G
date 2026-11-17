@@ -8,13 +8,13 @@ from handoverai.config import from_dict
 from handoverai.engine import prepare_world, simulate
 from handoverai.metrics import calculate, paired_summary
 from handoverai.models import Tower
-from handoverai.storage import (batch_directory, list_runs, persist_database, read_csv,
-                                write_run)
+from handoverai.storage import batch_directory, list_runs, persist_database, read_csv, write_run
 
 
 def metrics(result, cfg):
-    return calculate(result.timeseries, result.events, cfg.simulation.dt_s,
-                      cfg.handover.pingpong_window_s)
+    return calculate(
+        result.timeseries, result.events, cfg.simulation.dt_s, cfg.handover.pingpong_window_s
+    )
 
 
 def test_t07_no_towers_is_total_outage(cfg):
@@ -27,7 +27,7 @@ def test_t07_no_towers_is_total_outage(cfg):
 
 
 def test_t08_identical_towers_never_pingpong(cfg):
-    cfg = replace(cfg, towers=(Tower("B", (100, 0)), Tower("A", (100, 0))), blockers=())
+    cfg = replace(cfg, towers=(Tower("B", (100, 0), 100), Tower("A", (100, 0), 100)), blockers=())
     for name in cfg.policies:
         r = simulate(cfg, name)
         assert metrics(r, cfg)["handover_count"] == 0
@@ -45,24 +45,32 @@ def test_t17_zero_and_one_outage_exact_denominators(cfg):
 
 
 def test_t18_single_tick_and_empty(cfg):
-    cfg = replace(cfg, simulation=replace(cfg.simulation, duration_s=.5))
+    cfg = replace(cfg, simulation=replace(cfg.simulation, duration_s=0.5))
     assert metrics(simulate(cfg, "a3"), cfg)["observed_steps"] == 1
     with pytest.raises(ValueError, match="at least"):
-        calculate([], [], .5, 10)
+        calculate([], [], 0.5, 10)
     with pytest.raises(ValueError, match="no observations"):
         prepare_world(cfg, ())
 
 
 def test_episode_boundaries_and_pingpong_counted_per_return():
-    rows = [{"time_s": i*.5, "vehicle_id": "v", "outage": outage,
-             "state": "ATTACHED", "serving_quality_dbm": -80}
-            for i, outage in enumerate([True, True, False, True, False, True])]
-    events = [{"time_s": t, "vehicle_id": "v", "status": "success",
-               "from_tower": a, "to_tower": b} for t, a, b in
-              [(0, "A", "B"), (1, "B", "A"), (2, "A", "B"), (20, "B", "A")]]
-    m = calculate(rows, events, .5, 10)
-    assert m["outage_fraction"] == pytest.approx(4/6)
-    assert m["outage_episode_lengths_s"] == [1.0, .5, .5]
+    rows = [
+        {
+            "time_s": i * 0.5,
+            "vehicle_id": "v",
+            "outage": outage,
+            "state": "ATTACHED",
+            "serving_quality_dbm": -80,
+        }
+        for i, outage in enumerate([True, True, False, True, False, True])
+    ]
+    events = [
+        {"time_s": t, "vehicle_id": "v", "status": "success", "from_tower": a, "to_tower": b}
+        for t, a, b in [(0, "A", "B"), (1, "B", "A"), (2, "A", "B"), (20, "B", "A")]
+    ]
+    m = calculate(rows, events, 0.5, 10)
+    assert m["outage_fraction"] == pytest.approx(4 / 6)
+    assert m["outage_episode_lengths_s"] == [1.0, 0.5, 0.5]
     assert m["pingpong_count"] == 2 and m["handover_count"] == 4
 
 
@@ -83,11 +91,18 @@ def test_t20_output_contract_and_unique_paths(cfg, tmp_path):
     for name in cfg.policies:
         path = write_run(cfg, simulate(cfg, name, world), batch, tmp_path / "db.sqlite3")
         assert {p.name for p in path.iterdir()} == {
-            "timeseries.csv", "links.csv", "handovers.csv", "metrics.json", "manifest.json", "config.yaml"}
+            "timeseries.csv",
+            "links.csv",
+            "handovers.csv",
+            "metrics.json",
+            "manifest.json",
+            "config.yaml",
+        }
         manifest = json.loads((path / "manifest.json").read_text())
         assert manifest["config_hash"] == cfg.digest and manifest["seed"] == cfg.seed
         assert json.loads((path / "metrics.json").read_text()) == calculate(
-            read_csv(path / "timeseries.csv"), read_csv(path / "handovers.csv"), .5, 10)
+            read_csv(path / "timeseries.csv"), read_csv(path / "handovers.csv"), 0.5, 10
+        )
         with pytest.raises(FileExistsError):
             write_run(cfg, simulate(cfg, name, world), batch)
     assert len(list_runs(tmp_path / "db.sqlite3")) == 4
@@ -107,10 +122,10 @@ def test_database_duplicate_insert_rolls_back(cfg, tmp_path):
 
 
 def test_paired_bootstrap_constant_effect():
-    summary = paired_summary([-.1]*10)
-    assert summary["mean_delta"] == pytest.approx(-.1)
-    assert summary["ci95_low"] == pytest.approx(-.1)
-    assert summary["ci95_high"] == pytest.approx(-.1)
+    summary = paired_summary([-0.1] * 10)
+    assert summary["mean_delta"] == pytest.approx(-0.1)
+    assert summary["ci95_low"] == pytest.approx(-0.1)
+    assert summary["ci95_high"] == pytest.approx(-0.1)
     with pytest.raises(ValueError):
         paired_summary([])
 
@@ -126,8 +141,9 @@ def test_state_invariants_across_all_policies(cfg):
             if event["status"] == "success":
                 attempt = attempts.pop(event["vehicle_id"])
                 assert event["time_s"] - attempt["time_s"] >= cfg.handover.switch_delay_s
-        assert all(row["state"] == "SWITCHING" or row["pending_tower_id"] is None
-                   for row in r.timeseries)
+        assert all(
+            row["state"] == "SWITCHING" or row["pending_tower_id"] is None for row in r.timeseries
+        )
 
 
 def test_disabling_all_towers_via_yaml_is_supported(data):

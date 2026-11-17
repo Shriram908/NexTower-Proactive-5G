@@ -3,8 +3,15 @@ from dataclasses import replace
 import pytest
 
 from handoverai.handover import Controller
-from handoverai.models import (Blocker, Decision, HandoverState, LinkSample, PositionSample,
-                               State, Tower)
+from handoverai.models import (
+    Blocker,
+    Decision,
+    HandoverState,
+    LinkSample,
+    PositionSample,
+    State,
+    Tower,
+)
 from handoverai.policies import A3, Context, Nearest, Strongest
 from handoverai.predictor import forecast, known_geometry
 from handoverai.proactive import PredictivePolicy
@@ -15,9 +22,11 @@ def link(id, quality, usable=True):
 
 
 def context(t=0, a=-80, b=-75):
-    return Context(PositionSample(t, "v", 0, 0, 10, 0),
-                   (Tower("B", (10, 0)), Tower("A", (-10, 0))),
-                   (link("B", b), link("A", a)))
+    return Context(
+        PositionSample(t, "v", 0, 0, 10, 0),
+        (Tower("B", (10, 0)), Tower("A", (-10, 0))),
+        (link("B", b), link("A", a)),
+    )
 
 
 def test_t08_t09_strongest_and_ties():
@@ -41,7 +50,7 @@ def test_t10_a3_candidate_reset(cfg):
 def test_t11_ttt_uses_elapsed_seconds(cfg, dt):
     policy, state = A3(replace(cfg.handover, ttt_s=1)), HandoverState(State.ATTACHED, "A")
     for i in range(round(1 / dt)):
-        assert policy.decide(context(i*dt), state).target is None
+        assert policy.decide(context(i * dt), state).target is None
     assert policy.decide(context(1), state).target == "B"
 
 
@@ -114,21 +123,23 @@ def test_t14_forecasts_ignore_future_noise_and_schedules(cfg):
     active = Blocker("active", (130, 1, 150, 30), 9, 12)
     geometry = known_geometry((active, future), 10)
     assert geometry == (Blocker("active", active.bounds_m),)
-    a = forecast(*base, geometry, cfg.channel, cfg.predictive, .5, 42)
-    b = forecast(*base, geometry, replace(cfg.channel, shadowing_std_db=999),
-                 cfg.predictive, .5, 999)
+    a = forecast(*base, geometry, cfg.channel, cfg.predictive, 0.5, 42)
+    b = forecast(
+        *base, geometry, replace(cfg.channel, shadowing_std_db=999), cfg.predictive, 0.5, 999
+    )
     assert a == b  # location_noise=0 and forecast shadowing is zero, regardless of seed.
     with pytest.raises(ValueError, match="sanitized"):
-        forecast(*base, (future,), cfg.channel, cfg.predictive, .5, 42)
+        forecast(*base, (future,), cfg.channel, cfg.predictive, 0.5, 42)
 
 
 def test_predictive_score_and_current_feasibility(cfg):
     settings = replace(cfg.predictive, weight_switch=0, score_margin=0)
     policy = PredictivePolicy(settings, replace(cfg.handover, ttt_s=0))
-    ctx = replace(context(), forecasts=(("A", (link("A", -100, False),)),
-                                       ("B", (link("B", -70),))))
+    ctx = replace(context(), forecasts=(("A", (link("A", -100, False),)), ("B", (link("B", -70),))))
     state = HandoverState(State.ATTACHED, "A")
-    assert policy.scores(ctx, state)["B"] == pytest.approx(.35 * (50/80))
+    assert policy.scores(ctx, state)["B"] == pytest.approx(0.35 * (50 / 80))
     assert policy.decide(ctx, state).target == "B"
-    assert policy.decide(replace(ctx, links=(link("A", -80), link("B", -120, False))),
-                          state).target is None
+    assert (
+        policy.decide(replace(ctx, links=(link("A", -80), link("B", -120, False))), state).target
+        is None
+    )

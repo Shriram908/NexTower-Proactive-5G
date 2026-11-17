@@ -8,16 +8,19 @@ from handoverai.geometry import intersects_rectangle, is_blocked
 from handoverai.models import Blocker, PositionSample, Tower
 
 
-@pytest.mark.parametrize("a,b,bounds,expected", [
-    ((0, 0), (10, 0), (4, -1, 6, 1), True),
-    ((0, 0), (10, 0), (4, 2, 6, 3), False),
-    ((0, 0), (10, 0), (4, 0, 6, 1), True),
-    ((0, 0), (4, 0), (4, 0, 6, 1), True),
-    ((0, 0), (0, 0), (-1, -1, 1, 1), True),
-    ((0, 0), (0, 0), (1, 1, 2, 2), False),
-    ((10, 0), (0, 0), (4, -1, 6, 1), True),
-    ((5, -5), (5, 5), (4, -1, 6, 1), True),
-])
+@pytest.mark.parametrize(
+    "a,b,bounds,expected",
+    [
+        ((0, 0), (10, 0), (4, -1, 6, 1), True),
+        ((0, 0), (10, 0), (4, 2, 6, 3), False),
+        ((0, 0), (10, 0), (4, 0, 6, 1), True),
+        ((0, 0), (4, 0), (4, 0, 6, 1), True),
+        ((0, 0), (0, 0), (-1, -1, 1, 1), True),
+        ((0, 0), (0, 0), (1, 1, 2, 2), False),
+        ((10, 0), (0, 0), (4, -1, 6, 1), True),
+        ((5, -5), (5, 5), (4, -1, 6, 1), True),
+    ],
+)
 def test_t03_t04_closed_geometry(a, b, bounds, expected):
     assert intersects_rectangle(a, b, bounds) is expected
 
@@ -42,7 +45,9 @@ def test_channel_equation_blockage_and_disabled(cfg):
     clear = observe(p, tower, (), cfg.channel, 42)
     blocked = observe(p, tower, (Blocker("b", (4, -1, 6, 1)),), cfg.channel, 42)
     assert clear.rx_proxy_dbm == pytest.approx(30 - 60 - 22)
-    assert blocked.rx_proxy_dbm == pytest.approx(clear.rx_proxy_dbm - cfg.channel.blocker_penalty_db)
+    assert blocked.rx_proxy_dbm == pytest.approx(
+        clear.rx_proxy_dbm - cfg.channel.blocker_penalty_db
+    )
     assert not observe(p, replace(tower, enabled=False), (), cfg.channel, 42).usable
 
 

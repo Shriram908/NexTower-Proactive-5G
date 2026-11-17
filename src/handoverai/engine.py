@@ -29,24 +29,35 @@ class Result:
 def prepare_world(cfg: Config, samples: tuple[PositionSample, ...] | None = None) -> World:
     if samples is None and cfg.simulation.mobility_backend != "synthetic":
         from .traces import load_trace
+
         samples = load_trace(cfg.simulation.trace_file, cfg)
     samples = samples if samples is not None else synthetic_trace(cfg)
     if not samples:
         raise ValueError("mobility source produced no observations")
     towers = sorted((t for t in cfg.towers if t.enabled), key=lambda t: t.id)
-    return World(samples, tuple(tuple(observe(p, t, cfg.blockers, cfg.channel, cfg.seed)
-                                     for t in towers) for p in samples))
+    return World(
+        samples,
+        tuple(
+            tuple(observe(p, t, cfg.blockers, cfg.channel, cfg.seed) for t in towers)
+            for p in samples
+        ),
+    )
 
 
 def simulate(cfg: Config, policy_name: str, world: World | None = None) -> Result:
     if policy_name not in POLICIES:
         raise ValueError(f"unknown policy {policy_name!r}")
     world = world or prepare_world(cfg)
-    policy = {"nearest": Nearest(), "strongest": Strongest(), "a3": A3(cfg.handover),
-              "predictive": PredictivePolicy(cfg.predictive, cfg.handover)}[policy_name]
+    policy = {
+        "nearest": Nearest(),
+        "strongest": Strongest(),
+        "a3": A3(cfg.handover),
+        "predictive": PredictivePolicy(cfg.predictive, cfg.handover),
+    }[policy_name]
     vehicles = {v.id: v for v in cfg.vehicles}
-    controllers = {v.id: Controller(cfg.handover, v.id, policy_name, v.initial_tower_id)
-                   for v in cfg.vehicles}
+    controllers = {
+        v.id: Controller(cfg.handover, v.id, policy_name, v.initial_tower_id) for v in cfg.vehicles
+    }
     rows, link_rows = [], []
     last_seen = {}
     for sample, observations in zip(world.samples, world.links, strict=True):
@@ -54,17 +65,35 @@ def simulate(cfg: Config, policy_name: str, world: World | None = None) -> Resul
         links = {x.tower_id: x for x in observations}
         c.settle(sample.time_s, links)
         if c.state.state == State.ATTACHED:
-            estimates = forecast(sample, vehicles[sample.vehicle_id], cfg.towers,
-                known_geometry(cfg.blockers, sample.time_s), cfg.channel, cfg.predictive,
-                cfg.simulation.dt_s, cfg.seed) if policy_name == "predictive" else {}
+            estimates = (
+                forecast(
+                    sample,
+                    vehicles[sample.vehicle_id],
+                    cfg.towers,
+                    known_geometry(cfg.blockers, sample.time_s),
+                    cfg.channel,
+                    cfg.predictive,
+                    cfg.simulation.dt_s,
+                    cfg.seed,
+                )
+                if policy_name == "predictive"
+                else {}
+            )
             context = Context(sample, cfg.towers, observations, tuple(sorted(estimates.items())))
             c.request(sample.time_s, policy.decide(context, c.state), links)
         serving = links.get(c.state.serving)
         outage = c.state.state != State.ATTACHED or serving is None or not serving.usable
-        rows.append({**asdict(sample), "policy": policy_name,
-            "serving_tower_id": c.state.serving, "pending_tower_id": c.state.pending,
-            "serving_quality_dbm": serving.rx_proxy_dbm if serving else None,
-            "outage": outage, "state": c.state.state.value})
+        rows.append(
+            {
+                **asdict(sample),
+                "policy": policy_name,
+                "serving_tower_id": c.state.serving,
+                "pending_tower_id": c.state.pending,
+                "serving_quality_dbm": serving.rx_proxy_dbm if serving else None,
+                "outage": outage,
+                "state": c.state.state.value,
+            }
+        )
         link_rows.extend({**asdict(x), "policy": policy_name} for x in observations)
         last_seen[sample.vehicle_id] = sample.time_s
     for vid, controller in controllers.items():

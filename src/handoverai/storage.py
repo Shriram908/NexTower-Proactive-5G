@@ -63,10 +63,14 @@ def write_json(path: Path, value):
 def revision() -> dict:
     try:
         root = Path(__file__).resolve().parents[2]
-        commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root,
-                                          stderr=subprocess.DEVNULL, text=True).strip()
-        dirty = bool(subprocess.check_output(["git", "status", "--porcelain"], cwd=root,
-                                             stderr=subprocess.DEVNULL, text=True).strip())
+        commit = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], cwd=root, stderr=subprocess.DEVNULL, text=True
+        ).strip()
+        dirty = bool(
+            subprocess.check_output(
+                ["git", "status", "--porcelain"], cwd=root, stderr=subprocess.DEVNULL, text=True
+            ).strip()
+        )
         return {"code_commit": commit, "working_tree_dirty": dirty}
     except (subprocess.SubprocessError, OSError):
         return {"code_commit": None, "working_tree_dirty": None}
@@ -87,40 +91,103 @@ def persist_database(db_path: Path, manifest: dict, metrics: dict, result: Resul
             raise ValueError("unsupported database schema version")
         db.executescript(SCHEMA)
         rid = manifest["run_id"]
-        db.execute("INSERT INTO runs VALUES (?,?,?,?,?,?,?)", (rid, manifest["scenario_id"],
-            result.policy, manifest["seed"], manifest["config_hash"], json.dumps(manifest),
-            json.dumps(metrics)))
-        db.executemany("INSERT INTO observations VALUES (?,?,?,?,?,?,?,?,?)", [
-            (rid, r["time_s"], r["vehicle_id"], r["x_m"], r["y_m"], r["serving_tower_id"],
-             r["serving_quality_dbm"], int(r["outage"]), r["state"])
-            for r in result.timeseries])
-        db.executemany("INSERT INTO links VALUES (?,?,?,?,?,?,?)", [
-            (rid, r["time_s"], r["vehicle_id"], r["tower_id"], r["rx_proxy_dbm"],
-             int(r["blocked"]), int(r["usable"])) for r in result.links])
-        db.executemany("INSERT INTO events VALUES (?,?,?,?,?,?,?,?,?)", [
-            (rid, i, e["time_s"], e["vehicle_id"], e["from_tower"], e["to_tower"],
-             e["status"], e["reason"], e["completed_s"]) for i, e in enumerate(result.events)])
+        db.execute(
+            "INSERT INTO runs VALUES (?,?,?,?,?,?,?)",
+            (
+                rid,
+                manifest["scenario_id"],
+                result.policy,
+                manifest["seed"],
+                manifest["config_hash"],
+                json.dumps(manifest),
+                json.dumps(metrics),
+            ),
+        )
+        db.executemany(
+            "INSERT INTO observations VALUES (?,?,?,?,?,?,?,?,?)",
+            [
+                (
+                    rid,
+                    r["time_s"],
+                    r["vehicle_id"],
+                    r["x_m"],
+                    r["y_m"],
+                    r["serving_tower_id"],
+                    r["serving_quality_dbm"],
+                    int(r["outage"]),
+                    r["state"],
+                )
+                for r in result.timeseries
+            ],
+        )
+        db.executemany(
+            "INSERT INTO links VALUES (?,?,?,?,?,?,?)",
+            [
+                (
+                    rid,
+                    r["time_s"],
+                    r["vehicle_id"],
+                    r["tower_id"],
+                    r["rx_proxy_dbm"],
+                    int(r["blocked"]),
+                    int(r["usable"]),
+                )
+                for r in result.links
+            ],
+        )
+        db.executemany(
+            "INSERT INTO events VALUES (?,?,?,?,?,?,?,?,?)",
+            [
+                (
+                    rid,
+                    i,
+                    e["time_s"],
+                    e["vehicle_id"],
+                    e["from_tower"],
+                    e["to_tower"],
+                    e["status"],
+                    e["reason"],
+                    e["completed_s"],
+                )
+                for i, e in enumerate(result.events)
+            ],
+        )
 
 
 def write_run(cfg: Config, result: Result, batch: Path, db_path: Path | None = None) -> Path:
     directory = batch / result.policy
     directory.mkdir(exist_ok=False)
     write_csv(directory / "timeseries.csv", result.timeseries)
-    write_csv(directory / "links.csv", result.links,
-              [f.name for f in fields(LinkSample)] + ["policy"])
+    write_csv(
+        directory / "links.csv", result.links, [f.name for f in fields(LinkSample)] + ["policy"]
+    )
     write_csv(directory / "handovers.csv", result.events, [f.name for f in fields(HandoverEvent)])
     # Re-read exactly the serialized data used by reporting, avoiding two metric pipelines.
-    metrics = calculate(read_csv(directory / "timeseries.csv"),
-                        read_csv(directory / "handovers.csv"), cfg.simulation.dt_s,
-                        cfg.handover.pingpong_window_s)
-    manifest = {"schema_version": 1, "run_id": uuid.uuid4().hex, "scenario_id": cfg.scenario_id,
-        "seed": cfg.seed, "policy": result.policy, "config_hash": cfg.digest,
-        "backend": f"{cfg.simulation.mobility_backend}/proxy", "simulation_backend": "python",
-        "created_utc": datetime.now(timezone.utc).isoformat(), **revision(),
-        "versions": {"python": platform.python_version(), "handoverai": __version__,
-                     "PyYAML": importlib.metadata.version("PyYAML"),
-                     "matplotlib": importlib.metadata.version("matplotlib")},
-        "platform": platform.platform()}
+    metrics = calculate(
+        read_csv(directory / "timeseries.csv"),
+        read_csv(directory / "handovers.csv"),
+        cfg.simulation.dt_s,
+        cfg.handover.pingpong_window_s,
+    )
+    manifest = {
+        "schema_version": 1,
+        "run_id": uuid.uuid4().hex,
+        "scenario_id": cfg.scenario_id,
+        "seed": cfg.seed,
+        "policy": result.policy,
+        "config_hash": cfg.digest,
+        "backend": f"{cfg.simulation.mobility_backend}/proxy",
+        "simulation_backend": "python",
+        "created_utc": datetime.now(timezone.utc).isoformat(),
+        **revision(),
+        "versions": {
+            "python": platform.python_version(),
+            "handoverai": __version__,
+            "PyYAML": importlib.metadata.version("PyYAML"),
+            "matplotlib": importlib.metadata.version("matplotlib"),
+        },
+        "platform": platform.platform(),
+    }
     write_json(directory / "metrics.json", metrics)
     write_json(directory / "manifest.json", manifest)
     (directory / "config.yaml").write_text(yaml.safe_dump(cfg.to_dict(), sort_keys=False))
@@ -135,5 +202,9 @@ def list_runs(db_path: str | Path) -> list[dict]:
         raise ValueError(f"database does not exist: {path}; run simulate first")
     with sqlite3.connect(f"file:{path.resolve()}?mode=ro", uri=True) as db:
         db.row_factory = sqlite3.Row
-        return [dict(r) for r in db.execute(
-            "SELECT run_id, scenario, policy, seed, config_hash FROM runs ORDER BY rowid DESC")]
+        return [
+            dict(r)
+            for r in db.execute(
+                "SELECT run_id, scenario, policy, seed, config_hash FROM runs ORDER BY rowid DESC"
+            )
+        ]
