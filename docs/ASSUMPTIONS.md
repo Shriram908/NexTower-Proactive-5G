@@ -4,7 +4,8 @@
 * Power is a synthetic log-distance **dBm proxy**, not measured RSRP. Gains are dBi, losses dB.
 * Observation times are `0, dt, ..., duration-dt`. Duration and horizon must be integral tick
   multiples. No extra endpoint sample is included in metric denominators.
-* Each configured synthetic vehicle exists for the entire interval, including after stopping.
+* Each active configured synthetic vehicle exists for the entire interval, including after stopping.
+  Vehicles can be disabled with `active: false`; at least one active vehicle is required.
   CSV trace vehicles may depart permanently. Only their observed ticks count.
 * All policies share initial strongest-usable attachment, current channel, trace, seed,
   thresholds, handover delay, and dwell. Only their recommendation logic differs.

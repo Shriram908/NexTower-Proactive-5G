@@ -49,8 +49,8 @@ toy noise distribution and does not establish performance on public roads.
 
 Reports are static, local files without accounts, cloud hosting or authentication. SQLite is
 single-machine research storage; no multiuser service is intended. This project is ready for
-a Tier-A software submission, not a production telecommunications deployment. Python 3.14 on
-macOS ARM64 is the primary tested environment; Python 3.11+ is supported by declared package
+a Tier-A software submission, not a production telecommunications deployment. Python 3.14 and 3.12 on
+macOS ARM64 are tested environments; Python 3.11+ is supported by declared package
 requirements and a configured CI matrix, with exact additional tested versions recorded in
 the testing report. Initial dependency installation requires internet access; simulations and
 reports then run offline. Native binaries/virtual environments are intentionally absent from

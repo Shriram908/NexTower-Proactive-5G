@@ -30,5 +30,5 @@ sqlite3 -header -column runs/results.sqlite3 \
 The macOS `sqlite3` command is optional. The package CLI and Python's `sqlite3` module can inspect
 the same database if the system command is unavailable. The generated example database at
 `data/demo.sqlite3` is included in the submission archive; production-sized run databases and
-all `.sqlite3` files are excluded from Git by default. Regenerate the example from the documented
+all other `.sqlite3` files are excluded from Git by default. Regenerate the example from the documented
 demo commands. A diagram or claimed connection to PostgreSQL is unnecessary for this local tool.

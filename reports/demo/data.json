@@ -106,6 +106,7 @@
       ],
       "vehicles": [
         {
+          "active": true,
           "id": "car_01",
           "initial_tower_id": null,
           "path_xy_m": [
@@ -126,7 +127,7 @@
         }
       ]
     },
-    "download": "data/c5d3767cfc314bf3b4fcffb9b37c625a",
+    "download": "data/9c7006b06c0441b5950d7c0ec019db87",
     "events": [
       {
         "completed_s": "0.0",
@@ -201,21 +202,25 @@
     ],
     "manifest": {
       "backend": "synthetic/proxy",
-      "code_commit": "2335df1d2116a268c89a3a96ddaba7a1524369a2",
-      "config_hash": "10201ede8807b8d3108b11e74776d23a25861befa0988d7047690002f9181e60",
-      "created_utc": "2026-11-17T21:48:27.673477+00:00",
+      "code_commit": "554d6f64c91489e02af83d73b7386f32b63903bb",
+      "config_hash": "53793717d544399b8ea9a03be8bfc3a5c1b3f1d3fbd076fca65037d90485b627",
+      "created_utc": "2026-11-17T21:53:47.258680+00:00",
       "platform": "macOS-15.7.2-arm64-arm-64bit-Mach-O",
       "policy": "a3",
-      "run_id": "c5d3767cfc314bf3b4fcffb9b37c625a",
+      "run_id": "9c7006b06c0441b5950d7c0ec019db87",
       "scenario_id": "blocked_corridor_v1",
       "schema_version": 1,
       "seed": 42,
       "simulation_backend": "python",
+      "source_sha256": "72c106b8ead6b3883f0d966194a1586279d540054ea1c1702773e841ce058aaa",
+      "source_tree_dirty": false,
       "versions": {
         "PyYAML": "6.0.3",
         "handoverai": "1.0.0",
         "matplotlib": "3.10.8",
-        "python": "3.14.7"
+        "numpy": "2.3.5",
+        "python": "3.14.7",
+        "sqlite": "3.54.1"
       },
       "working_tree_dirty": true
     },
@@ -2875,6 +2880,7 @@
       ],
       "vehicles": [
         {
+          "active": true,
           "id": "car_01",
           "initial_tower_id": null,
           "path_xy_m": [
@@ -2895,7 +2901,7 @@
         }
       ]
     },
-    "download": "data/a7e14f81110d4755bf93f5fc405b8c4b",
+    "download": "data/3445bbd496004d9ab3c2f176341a281e",
     "events": [
       {
         "completed_s": "0.0",
@@ -3020,21 +3026,25 @@
     ],
     "manifest": {
       "backend": "synthetic/proxy",
-      "code_commit": "2335df1d2116a268c89a3a96ddaba7a1524369a2",
-      "config_hash": "10201ede8807b8d3108b11e74776d23a25861befa0988d7047690002f9181e60",
-      "created_utc": "2026-11-17T21:48:27.558230+00:00",
+      "code_commit": "554d6f64c91489e02af83d73b7386f32b63903bb",
+      "config_hash": "53793717d544399b8ea9a03be8bfc3a5c1b3f1d3fbd076fca65037d90485b627",
+      "created_utc": "2026-11-17T21:53:47.152976+00:00",
       "platform": "macOS-15.7.2-arm64-arm-64bit-Mach-O",
       "policy": "nearest",
-      "run_id": "a7e14f81110d4755bf93f5fc405b8c4b",
+      "run_id": "3445bbd496004d9ab3c2f176341a281e",
       "scenario_id": "blocked_corridor_v1",
       "schema_version": 1,
       "seed": 42,
       "simulation_backend": "python",
+      "source_sha256": "72c106b8ead6b3883f0d966194a1586279d540054ea1c1702773e841ce058aaa",
+      "source_tree_dirty": false,
       "versions": {
         "PyYAML": "6.0.3",
         "handoverai": "1.0.0",
         "matplotlib": "3.10.8",
-        "python": "3.14.7"
+        "numpy": "2.3.5",
+        "python": "3.14.7",
+        "sqlite": "3.54.1"
       },
       "working_tree_dirty": true
     },
@@ -5693,6 +5703,7 @@
       ],
       "vehicles": [
         {
+          "active": true,
           "id": "car_01",
           "initial_tower_id": null,
           "path_xy_m": [
@@ -5713,7 +5724,7 @@
         }
       ]
     },
-    "download": "data/a3456b9deb2e477b8f14017343b4a40f",
+    "download": "data/4d34627ece9a4b5f88f003118017bf55",
     "events": [
       {
         "completed_s": "0.0",
@@ -5748,21 +5759,25 @@
     ],
     "manifest": {
       "backend": "synthetic/proxy",
-      "code_commit": "2335df1d2116a268c89a3a96ddaba7a1524369a2",
-      "config_hash": "10201ede8807b8d3108b11e74776d23a25861befa0988d7047690002f9181e60",
-      "created_utc": "2026-11-17T21:48:27.731684+00:00",
+      "code_commit": "554d6f64c91489e02af83d73b7386f32b63903bb",
+      "config_hash": "53793717d544399b8ea9a03be8bfc3a5c1b3f1d3fbd076fca65037d90485b627",
+      "created_utc": "2026-11-17T21:53:47.325126+00:00",
       "platform": "macOS-15.7.2-arm64-arm-64bit-Mach-O",
       "policy": "predictive",
-      "run_id": "a3456b9deb2e477b8f14017343b4a40f",
+      "run_id": "4d34627ece9a4b5f88f003118017bf55",
       "scenario_id": "blocked_corridor_v1",
       "schema_version": 1,
       "seed": 42,
       "simulation_backend": "python",
+      "source_sha256": "72c106b8ead6b3883f0d966194a1586279d540054ea1c1702773e841ce058aaa",
+      "source_tree_dirty": false,
       "versions": {
         "PyYAML": "6.0.3",
         "handoverai": "1.0.0",
         "matplotlib": "3.10.8",
-        "python": "3.14.7"
+        "numpy": "2.3.5",
+        "python": "3.14.7",
+        "sqlite": "3.54.1"
       },
       "working_tree_dirty": true
     },
@@ -8420,6 +8435,7 @@
       ],
       "vehicles": [
         {
+          "active": true,
           "id": "car_01",
           "initial_tower_id": null,
           "path_xy_m": [
@@ -8440,7 +8456,7 @@
         }
       ]
     },
-    "download": "data/af49e844b9334e2a9d0ffa9866569344",
+    "download": "data/a77803514b2a483b9230609fd5b9a83b",
     "events": [
       {
         "completed_s": "0.0",
@@ -8515,21 +8531,25 @@
     ],
     "manifest": {
       "backend": "synthetic/proxy",
-      "code_commit": "2335df1d2116a268c89a3a96ddaba7a1524369a2",
-      "config_hash": "10201ede8807b8d3108b11e74776d23a25861befa0988d7047690002f9181e60",
-      "created_utc": "2026-11-17T21:48:27.646048+00:00",
+      "code_commit": "554d6f64c91489e02af83d73b7386f32b63903bb",
+      "config_hash": "53793717d544399b8ea9a03be8bfc3a5c1b3f1d3fbd076fca65037d90485b627",
+      "created_utc": "2026-11-17T21:53:47.222359+00:00",
       "platform": "macOS-15.7.2-arm64-arm-64bit-Mach-O",
       "policy": "strongest",
-      "run_id": "af49e844b9334e2a9d0ffa9866569344",
+      "run_id": "a77803514b2a483b9230609fd5b9a83b",
       "scenario_id": "blocked_corridor_v1",
       "schema_version": 1,
       "seed": 42,
       "simulation_backend": "python",
+      "source_sha256": "72c106b8ead6b3883f0d966194a1586279d540054ea1c1702773e841ce058aaa",
+      "source_tree_dirty": false,
       "versions": {
         "PyYAML": "6.0.3",
         "handoverai": "1.0.0",
         "matplotlib": "3.10.8",
-        "python": "3.14.7"
+        "numpy": "2.3.5",
+        "python": "3.14.7",
+        "sqlite": "3.54.1"
       },
       "working_tree_dirty": true
     },
@@ -11200,6 +11220,7 @@
       ],
       "vehicles": [
         {
+          "active": true,
           "id": "car_01",
           "initial_tower_id": null,
           "path_xy_m": [
@@ -11220,7 +11241,7 @@
         }
       ]
     },
-    "download": "data/ed67d3174bd348e98db546e6acbb6855",
+    "download": "data/6218f51a04d5482ca599325dff0914a9",
     "events": [
       {
         "completed_s": "0.0",
@@ -11295,21 +11316,25 @@
     ],
     "manifest": {
       "backend": "synthetic/proxy",
-      "code_commit": "2335df1d2116a268c89a3a96ddaba7a1524369a2",
-      "config_hash": "9875eff053e4e84d1629c81230f005ed41a91b5d4902de866f3ebdc7c38e4d8e",
-      "created_utc": "2026-11-17T21:48:28.309212+00:00",
+      "code_commit": "554d6f64c91489e02af83d73b7386f32b63903bb",
+      "config_hash": "f388b6a65f2cce1e786e4774d6c6814552f051b814c786485c3bda778cf1cc43",
+      "created_utc": "2026-11-17T21:53:47.815090+00:00",
       "platform": "macOS-15.7.2-arm64-arm-64bit-Mach-O",
       "policy": "a3",
-      "run_id": "ed67d3174bd348e98db546e6acbb6855",
+      "run_id": "6218f51a04d5482ca599325dff0914a9",
       "scenario_id": "dynamic_blocker_v1",
       "schema_version": 1,
       "seed": 42,
       "simulation_backend": "python",
+      "source_sha256": "72c106b8ead6b3883f0d966194a1586279d540054ea1c1702773e841ce058aaa",
+      "source_tree_dirty": false,
       "versions": {
         "PyYAML": "6.0.3",
         "handoverai": "1.0.0",
         "matplotlib": "3.10.8",
-        "python": "3.14.7"
+        "numpy": "2.3.5",
+        "python": "3.14.7",
+        "sqlite": "3.54.1"
       },
       "working_tree_dirty": true
     },
@@ -13980,6 +14005,7 @@
       ],
       "vehicles": [
         {
+          "active": true,
           "id": "car_01",
           "initial_tower_id": null,
           "path_xy_m": [
@@ -14000,7 +14026,7 @@
         }
       ]
     },
-    "download": "data/30c6880b29a24d5ba7bcbed735014ced",
+    "download": "data/711114c7cf7c4e61b64011d81728fee9",
     "events": [
       {
         "completed_s": "0.0",
@@ -14225,21 +14251,25 @@
     ],
     "manifest": {
       "backend": "synthetic/proxy",
-      "code_commit": "2335df1d2116a268c89a3a96ddaba7a1524369a2",
-      "config_hash": "9875eff053e4e84d1629c81230f005ed41a91b5d4902de866f3ebdc7c38e4d8e",
-      "created_utc": "2026-11-17T21:48:28.178164+00:00",
+      "code_commit": "554d6f64c91489e02af83d73b7386f32b63903bb",
+      "config_hash": "f388b6a65f2cce1e786e4774d6c6814552f051b814c786485c3bda778cf1cc43",
+      "created_utc": "2026-11-17T21:53:47.733875+00:00",
       "platform": "macOS-15.7.2-arm64-arm-64bit-Mach-O",
       "policy": "nearest",
-      "run_id": "30c6880b29a24d5ba7bcbed735014ced",
+      "run_id": "711114c7cf7c4e61b64011d81728fee9",
       "scenario_id": "dynamic_blocker_v1",
       "schema_version": 1,
       "seed": 42,
       "simulation_backend": "python",
+      "source_sha256": "72c106b8ead6b3883f0d966194a1586279d540054ea1c1702773e841ce058aaa",
+      "source_tree_dirty": false,
       "versions": {
         "PyYAML": "6.0.3",
         "handoverai": "1.0.0",
         "matplotlib": "3.10.8",
-        "python": "3.14.7"
+        "numpy": "2.3.5",
+        "python": "3.14.7",
+        "sqlite": "3.54.1"
       },
       "working_tree_dirty": true
     },
@@ -16910,6 +16940,7 @@
       ],
       "vehicles": [
         {
+          "active": true,
           "id": "car_01",
           "initial_tower_id": null,
           "path_xy_m": [
@@ -16930,7 +16961,7 @@
         }
       ]
     },
-    "download": "data/f471bd6b763e4af8b080af8000eb55ca",
+    "download": "data/0df2a2f4062c43b29e2565ee6fad06ed",
     "events": [
       {
         "completed_s": "0.0",
@@ -17025,21 +17056,25 @@
     ],
     "manifest": {
       "backend": "synthetic/proxy",
-      "code_commit": "2335df1d2116a268c89a3a96ddaba7a1524369a2",
-      "config_hash": "9875eff053e4e84d1629c81230f005ed41a91b5d4902de866f3ebdc7c38e4d8e",
-      "created_utc": "2026-11-17T21:48:28.445090+00:00",
+      "code_commit": "554d6f64c91489e02af83d73b7386f32b63903bb",
+      "config_hash": "f388b6a65f2cce1e786e4774d6c6814552f051b814c786485c3bda778cf1cc43",
+      "created_utc": "2026-11-17T21:53:47.879996+00:00",
       "platform": "macOS-15.7.2-arm64-arm-64bit-Mach-O",
       "policy": "predictive",
-      "run_id": "f471bd6b763e4af8b080af8000eb55ca",
+      "run_id": "0df2a2f4062c43b29e2565ee6fad06ed",
       "scenario_id": "dynamic_blocker_v1",
       "schema_version": 1,
       "seed": 42,
       "simulation_backend": "python",
+      "source_sha256": "72c106b8ead6b3883f0d966194a1586279d540054ea1c1702773e841ce058aaa",
+      "source_tree_dirty": false,
       "versions": {
         "PyYAML": "6.0.3",
         "handoverai": "1.0.0",
         "matplotlib": "3.10.8",
-        "python": "3.14.7"
+        "numpy": "2.3.5",
+        "python": "3.14.7",
+        "sqlite": "3.54.1"
       },
       "working_tree_dirty": true
     },
@@ -19711,6 +19746,7 @@
       ],
       "vehicles": [
         {
+          "active": true,
           "id": "car_01",
           "initial_tower_id": null,
           "path_xy_m": [
@@ -19731,7 +19767,7 @@
         }
       ]
     },
-    "download": "data/443d140f26944b85ab1d5972624da189",
+    "download": "data/4911e8a4d7764589987d3fe9fab16fd2",
     "events": [
       {
         "completed_s": "0.0",
@@ -19846,21 +19882,25 @@
     ],
     "manifest": {
       "backend": "synthetic/proxy",
-      "code_commit": "2335df1d2116a268c89a3a96ddaba7a1524369a2",
-      "config_hash": "9875eff053e4e84d1629c81230f005ed41a91b5d4902de866f3ebdc7c38e4d8e",
-      "created_utc": "2026-11-17T21:48:28.259818+00:00",
+      "code_commit": "554d6f64c91489e02af83d73b7386f32b63903bb",
+      "config_hash": "f388b6a65f2cce1e786e4774d6c6814552f051b814c786485c3bda778cf1cc43",
+      "created_utc": "2026-11-17T21:53:47.782007+00:00",
       "platform": "macOS-15.7.2-arm64-arm-64bit-Mach-O",
       "policy": "strongest",
-      "run_id": "443d140f26944b85ab1d5972624da189",
+      "run_id": "4911e8a4d7764589987d3fe9fab16fd2",
       "scenario_id": "dynamic_blocker_v1",
       "schema_version": 1,
       "seed": 42,
       "simulation_backend": "python",
+      "source_sha256": "72c106b8ead6b3883f0d966194a1586279d540054ea1c1702773e841ce058aaa",
+      "source_tree_dirty": false,
       "versions": {
         "PyYAML": "6.0.3",
         "handoverai": "1.0.0",
         "matplotlib": "3.10.8",
-        "python": "3.14.7"
+        "numpy": "2.3.5",
+        "python": "3.14.7",
+        "sqlite": "3.54.1"
       },
       "working_tree_dirty": true
     },
@@ -22499,6 +22539,7 @@
       ],
       "vehicles": [
         {
+          "active": true,
           "id": "car_01",
           "initial_tower_id": null,
           "path_xy_m": [
@@ -22519,7 +22560,7 @@
         }
       ]
     },
-    "download": "data/60ea9b5ce0ad4ab69c001f6f67323150",
+    "download": "data/d2cf0f82bedb4b388a4b0808842c1f41",
     "events": [
       {
         "completed_s": "0.0",
@@ -22574,21 +22615,25 @@
     ],
     "manifest": {
       "backend": "synthetic/proxy",
-      "code_commit": "2335df1d2116a268c89a3a96ddaba7a1524369a2",
-      "config_hash": "6b9883083874d63c6ec2c99374b28e95366093dc9877ad4d6cb359686500b8a9",
-      "created_utc": "2026-11-17T21:48:27.941670+00:00",
+      "code_commit": "554d6f64c91489e02af83d73b7386f32b63903bb",
+      "config_hash": "2d9cdba513a8712154d3174fca399ee35a65ec9ae65ef3eff3bfd07aed79c801",
+      "created_utc": "2026-11-17T21:53:47.541643+00:00",
       "platform": "macOS-15.7.2-arm64-arm-64bit-Mach-O",
       "policy": "a3",
-      "run_id": "60ea9b5ce0ad4ab69c001f6f67323150",
+      "run_id": "d2cf0f82bedb4b388a4b0808842c1f41",
       "scenario_id": "no_blockage_v1",
       "schema_version": 1,
       "seed": 42,
       "simulation_backend": "python",
+      "source_sha256": "72c106b8ead6b3883f0d966194a1586279d540054ea1c1702773e841ce058aaa",
+      "source_tree_dirty": false,
       "versions": {
         "PyYAML": "6.0.3",
         "handoverai": "1.0.0",
         "matplotlib": "3.10.8",
-        "python": "3.14.7"
+        "numpy": "2.3.5",
+        "python": "3.14.7",
+        "sqlite": "3.54.1"
       },
       "working_tree_dirty": true
     },
@@ -25224,6 +25269,7 @@
       ],
       "vehicles": [
         {
+          "active": true,
           "id": "car_01",
           "initial_tower_id": null,
           "path_xy_m": [
@@ -25244,7 +25290,7 @@
         }
       ]
     },
-    "download": "data/f4c3d474b18e4672ab233ee84e46b3a4",
+    "download": "data/a96bcd713d964347b118370514d90220",
     "events": [
       {
         "completed_s": "0.0",
@@ -25299,21 +25345,25 @@
     ],
     "manifest": {
       "backend": "synthetic/proxy",
-      "code_commit": "2335df1d2116a268c89a3a96ddaba7a1524369a2",
-      "config_hash": "6b9883083874d63c6ec2c99374b28e95366093dc9877ad4d6cb359686500b8a9",
-      "created_utc": "2026-11-17T21:48:27.870848+00:00",
+      "code_commit": "554d6f64c91489e02af83d73b7386f32b63903bb",
+      "config_hash": "2d9cdba513a8712154d3174fca399ee35a65ec9ae65ef3eff3bfd07aed79c801",
+      "created_utc": "2026-11-17T21:53:47.457830+00:00",
       "platform": "macOS-15.7.2-arm64-arm-64bit-Mach-O",
       "policy": "nearest",
-      "run_id": "f4c3d474b18e4672ab233ee84e46b3a4",
+      "run_id": "a96bcd713d964347b118370514d90220",
       "scenario_id": "no_blockage_v1",
       "schema_version": 1,
       "seed": 42,
       "simulation_backend": "python",
+      "source_sha256": "72c106b8ead6b3883f0d966194a1586279d540054ea1c1702773e841ce058aaa",
+      "source_tree_dirty": false,
       "versions": {
         "PyYAML": "6.0.3",
         "handoverai": "1.0.0",
         "matplotlib": "3.10.8",
-        "python": "3.14.7"
+        "numpy": "2.3.5",
+        "python": "3.14.7",
+        "sqlite": "3.54.1"
       },
       "working_tree_dirty": true
     },
@@ -27949,6 +27999,7 @@
       ],
       "vehicles": [
         {
+          "active": true,
           "id": "car_01",
           "initial_tower_id": null,
           "path_xy_m": [
@@ -27969,7 +28020,7 @@
         }
       ]
     },
-    "download": "data/7cf782ed93f74d97ba33ee6cc76faea5",
+    "download": "data/b57f2718ede840eab63704cc783b17c3",
     "events": [
       {
         "completed_s": "0.0",
@@ -28004,21 +28055,25 @@
     ],
     "manifest": {
       "backend": "synthetic/proxy",
-      "code_commit": "2335df1d2116a268c89a3a96ddaba7a1524369a2",
-      "config_hash": "6b9883083874d63c6ec2c99374b28e95366093dc9877ad4d6cb359686500b8a9",
-      "created_utc": "2026-11-17T21:48:28.000381+00:00",
+      "code_commit": "554d6f64c91489e02af83d73b7386f32b63903bb",
+      "config_hash": "2d9cdba513a8712154d3174fca399ee35a65ec9ae65ef3eff3bfd07aed79c801",
+      "created_utc": "2026-11-17T21:53:47.599597+00:00",
       "platform": "macOS-15.7.2-arm64-arm-64bit-Mach-O",
       "policy": "predictive",
-      "run_id": "7cf782ed93f74d97ba33ee6cc76faea5",
+      "run_id": "b57f2718ede840eab63704cc783b17c3",
       "scenario_id": "no_blockage_v1",
       "schema_version": 1,
       "seed": 42,
       "simulation_backend": "python",
+      "source_sha256": "72c106b8ead6b3883f0d966194a1586279d540054ea1c1702773e841ce058aaa",
+      "source_tree_dirty": false,
       "versions": {
         "PyYAML": "6.0.3",
         "handoverai": "1.0.0",
         "matplotlib": "3.10.8",
-        "python": "3.14.7"
+        "numpy": "2.3.5",
+        "python": "3.14.7",
+        "sqlite": "3.54.1"
       },
       "working_tree_dirty": true
     },
@@ -30653,6 +30708,7 @@
       ],
       "vehicles": [
         {
+          "active": true,
           "id": "car_01",
           "initial_tower_id": null,
           "path_xy_m": [
@@ -30673,7 +30729,7 @@
         }
       ]
     },
-    "download": "data/4882eb585e7845a183877c023d9dee08",
+    "download": "data/479f043d8cdc43929fb041ade178b726",
     "events": [
       {
         "completed_s": "0.0",
@@ -30728,21 +30784,25 @@
     ],
     "manifest": {
       "backend": "synthetic/proxy",
-      "code_commit": "2335df1d2116a268c89a3a96ddaba7a1524369a2",
-      "config_hash": "6b9883083874d63c6ec2c99374b28e95366093dc9877ad4d6cb359686500b8a9",
-      "created_utc": "2026-11-17T21:48:27.913851+00:00",
+      "code_commit": "554d6f64c91489e02af83d73b7386f32b63903bb",
+      "config_hash": "2d9cdba513a8712154d3174fca399ee35a65ec9ae65ef3eff3bfd07aed79c801",
+      "created_utc": "2026-11-17T21:53:47.506537+00:00",
       "platform": "macOS-15.7.2-arm64-arm-64bit-Mach-O",
       "policy": "strongest",
-      "run_id": "4882eb585e7845a183877c023d9dee08",
+      "run_id": "479f043d8cdc43929fb041ade178b726",
       "scenario_id": "no_blockage_v1",
       "schema_version": 1,
       "seed": 42,
       "simulation_backend": "python",
+      "source_sha256": "72c106b8ead6b3883f0d966194a1586279d540054ea1c1702773e841ce058aaa",
+      "source_tree_dirty": false,
       "versions": {
         "PyYAML": "6.0.3",
         "handoverai": "1.0.0",
         "matplotlib": "3.10.8",
-        "python": "3.14.7"
+        "numpy": "2.3.5",
+        "python": "3.14.7",
+        "sqlite": "3.54.1"
       },
       "working_tree_dirty": true
     },

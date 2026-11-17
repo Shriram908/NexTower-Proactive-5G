@@ -36,7 +36,7 @@ excessive switching. Results can support or refute the hypotheses; they are neve
 
 ## 2. Run on a Mac — exact commands
 
-Python 3.11 or newer is required. The release was tested with Python 3.14.7 on macOS ARM64.
+Python 3.11 or newer is required. The release was tested with Python 3.14.7 and 3.12.14 on macOS ARM64.
 The initial dependency installation needs internet access; subsequent simulations work offline.
 If Python is missing, install a current Python from [python.org](https://www.python.org/downloads/macos/).
 No paid API, API key, database server, Node.js or external dataset is required.
@@ -293,7 +293,7 @@ python -m pip check
 python -m build --no-isolation
 ```
 
-Tests cover T01–T23, including malformed scenarios, geometry tangencies, zero distance, TTT
+The 100 tests cover T01–T23, including malformed scenarios, geometry tangencies, zero distance, TTT
 across tick sizes, delayed/failing switches, causal forecasts, exact replay, reversed policy
 order, metrics denominators, trace gaps, database integrity, report tampering and CLI errors.
 See [TESTING_REPORT.md](docs/TESTING_REPORT.md) for actual execution evidence, not a remote CI claim.
