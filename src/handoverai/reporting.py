@@ -28,6 +28,8 @@ def collect(runs: Path) -> list[dict]:
     seen = set()
     for path in manifests:
         manifest = json.loads(path.read_text())
+        if manifest.get("kind") == "experiment_suite":
+            continue
         rid = manifest["run_id"]
         if rid in seen:
             continue
@@ -49,6 +51,10 @@ def collect(runs: Path) -> list[dict]:
                 "events": events,
                 "source": directory,
             }
+        )
+    if not results:
+        raise ValueError(
+            "no simulation runs found; benchmark suites are already reported separately"
         )
     return results
 

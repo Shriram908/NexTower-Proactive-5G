@@ -141,6 +141,8 @@ def from_dict(data: dict) -> Config:
                 raise ValueError(f"{key}: expected a list")
             parsed = []
             for row in rows:
+                if not isinstance(row, dict):
+                    raise ValueError(f"{key}: each item must be a mapping")
                 row = dict(row)
                 if cls is Tower:
                     row["xy_m"] = _xy(row.get("xy_m"), "tower.xy_m")
@@ -170,7 +172,7 @@ def from_dict(data: dict) -> Config:
 
 
 def _validate(c: Config):
-    if c.schema_version != 1:
+    if type(c.schema_version) is not int or c.schema_version != 1:
         raise ValueError("schema_version: only version 1 is supported")
     if not isinstance(c.scenario_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]+", c.scenario_id):
         raise ValueError("scenario_id: use only letters, digits, underscore and hyphen")
@@ -179,12 +181,16 @@ def _validate(c: Config):
     s = c.simulation
     _finite(s.duration_s, "simulation.duration_s", positive=True)
     _finite(s.dt_s, "simulation.dt_s", positive=True)
-    if not math.isclose(s.duration_s / s.dt_s, round(s.duration_s / s.dt_s), abs_tol=1e-8):
+    if s.duration_s < s.dt_s or not math.isclose(
+        s.duration_s / s.dt_s, round(s.duration_s / s.dt_s), rel_tol=0, abs_tol=1e-8
+    ):
         raise ValueError("duration_s must be an integer multiple of dt_s")
     if s.mobility_backend not in ("synthetic", "trace") or s.channel_backend != "proxy":
         raise ValueError("backends: mobility=synthetic|trace, channel=proxy only")
     if s.mobility_backend == "trace" and not s.trace_file:
         raise ValueError("simulation.trace_file is required for trace mobility")
+    if s.trace_file is not None and (not isinstance(s.trace_file, str) or not s.trace_file):
+        raise ValueError("simulation.trace_file must be a nonempty path string")
     for f in fields(c.road):
         _finite(getattr(c.road, f.name), "road." + f.name)
     if c.road.x_min_m >= c.road.x_max_m or c.road.y_min_m >= c.road.y_max_m:
@@ -201,13 +207,20 @@ def _validate(c: Config):
         if not isinstance(t.enabled, bool):
             raise ValueError("tower.enabled: expected true or false")
     for v in c.vehicles:
+        if not isinstance(v.active, bool):
+            raise ValueError("vehicle.active: expected true or false")
         _finite(v.speed_mps, "vehicle.speed_mps", minimum=0)
         if v.start_xy_m != v.path_xy_m[0]:
             raise ValueError("vehicle.start_xy_m must equal the first route waypoint")
         if any(a == b for a, b in zip(v.path_xy_m, v.path_xy_m[1:])):
             raise ValueError("vehicle.path_xy_m: consecutive waypoints must differ")
-        if v.initial_tower_id and v.initial_tower_id not in {t.id for t in c.towers if t.enabled}:
+        if v.initial_tower_id is not None and (
+            not isinstance(v.initial_tower_id, str)
+            or v.initial_tower_id not in {t.id for t in c.towers if t.enabled}
+        ):
             raise ValueError("vehicle.initial_tower_id: unknown or disabled tower")
+    if not any(v.active for v in c.vehicles):
+        raise ValueError("vehicles: at least one active vehicle required")
     for b in c.blockers:
         _finite(b.start_s, "blocker.start_s", minimum=0)
         if b.end_s is not None:
@@ -226,7 +239,7 @@ def _validate(c: Config):
         _finite(getattr(c.predictive, f.name), "predictive." + f.name)
     p = c.predictive
     if p.horizon_s < s.dt_s or not math.isclose(
-        p.horizon_s / s.dt_s, round(p.horizon_s / s.dt_s), abs_tol=1e-8
+        p.horizon_s / s.dt_s, round(p.horizon_s / s.dt_s), rel_tol=0, abs_tol=1e-8
     ):
         raise ValueError("predictive.horizon_s must be a positive integer multiple of dt_s")
     if p.q_min_dbm >= p.q_max_dbm:
@@ -264,5 +277,8 @@ def load_config(path: str | Path, overrides: list[str] | None = None) -> Config:
             if not isinstance(target.get(key), dict):
                 raise ValueError(f"unknown override section: {name}")
             target = target[key]
-        target[keys[-1]] = yaml.safe_load(value)
+        try:
+            target[keys[-1]] = yaml.safe_load(value)
+        except yaml.YAMLError as exc:
+            raise ValueError(f"invalid YAML override for {name}: {exc}") from exc
     return from_dict(data)

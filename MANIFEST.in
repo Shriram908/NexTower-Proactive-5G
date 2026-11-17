@@ -1,0 +1,11 @@
+include LICENSE README.md THIRD_PARTY_NOTICES.md requirements.lock
+recursive-include configs *.yaml
+recursive-include docs *.md
+recursive-include scripts *.py *.sh
+recursive-include tests *.py
+recursive-include data *.csv *.md *.sqlite3
+recursive-include reports *.csv *.json *.yaml *.html *.png
+recursive-include .vscode *.json
+recursive-include .github *.yml
+prune reports/preview
+prune tmp

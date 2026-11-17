@@ -29,7 +29,7 @@ def observe(
     loss = channel.pl0_db + 10 * channel.pathloss_exponent * math.log10(d / channel.d0_m)
     shadow = (
         0.0
-        if forecast
+        if forecast or channel.shadowing_std_db == 0
         else channel.shadowing_std_db
         * keyed_normal(seed, "radio", sample.vehicle_id, tower.id, round(sample.time_s, 10))
     )

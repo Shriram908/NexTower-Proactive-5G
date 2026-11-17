@@ -76,6 +76,7 @@ def benchmark(cfg: Config, seeds: int, suite: str, output: Path) -> Path:
         raise ValueError(
             "sensitivity experiments require synthetic mobility; use simulate for traces"
         )
+    provenance = revision()
     output.mkdir(parents=True, exist_ok=False)
     rows, snapshots, cache = [], {}, {}
     matrix = variants(cfg, suite)
@@ -176,11 +177,12 @@ def benchmark(cfg: Config, seeds: int, suite: str, output: Path) -> Path:
             "evaluated_rows": len(rows),
             "unique_simulations": len(cache),
             "created_utc": datetime.now(timezone.utc).isoformat(),
-            **revision(),
+            **provenance,
             "versions": {
                 "python": platform.python_version(),
                 "matplotlib": importlib.metadata.version("matplotlib"),
                 "PyYAML": importlib.metadata.version("PyYAML"),
+                "numpy": importlib.metadata.version("numpy"),
             },
             "note": "Synthetic proxy only. Seeds pair mobility and channel across policies. "
             "E2 duration covers full route plus 5 seconds; prediction error changes forecasts only.",

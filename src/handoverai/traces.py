@@ -18,7 +18,7 @@ def load_trace(path: str | Path, cfg: Config) -> tuple[PositionSample, ...]:
         if reader.fieldnames != COLUMNS:
             raise ValueError(f"trace columns must be exactly {COLUMNS}")
         samples = []
-        known = {v.id for v in cfg.vehicles}
+        known = {v.id for v in cfg.vehicles if v.active}
         ticks = {vid: [] for vid in known}
         previous = (-1.0, "")
         for line, row in enumerate(reader, 2):

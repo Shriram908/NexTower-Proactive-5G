@@ -33,4 +33,5 @@ def synthetic_trace(cfg: Config) -> tuple[PositionSample, ...]:
         position_at(v, round(tick * cfg.simulation.dt_s, 10))
         for tick in range(cfg.ticks)
         for v in sorted(cfg.vehicles, key=lambda v: v.id)
+        if v.active
     )

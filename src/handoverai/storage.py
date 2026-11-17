@@ -1,6 +1,7 @@
 """Inspectable CSV/JSON artifacts plus transactional, normalized SQLite persistence."""
 
 import csv
+import hashlib
 import importlib.metadata
 import json
 import platform
@@ -61,6 +62,11 @@ def write_json(path: Path, value):
 
 
 def revision() -> dict:
+    package = Path(__file__).resolve().parent
+    source = hashlib.sha256()
+    for path in sorted(p for p in package.iterdir() if p.suffix in (".py", ".html")):
+        source.update(path.name.encode() + b"\0" + path.read_bytes() + b"\0")
+    metadata = {"source_sha256": source.hexdigest()}
     try:
         root = Path(__file__).resolve().parents[2]
         commit = subprocess.check_output(
@@ -71,9 +77,35 @@ def revision() -> dict:
                 ["git", "status", "--porcelain"], cwd=root, stderr=subprocess.DEVNULL, text=True
             ).strip()
         )
-        return {"code_commit": commit, "working_tree_dirty": dirty}
+        source_dirty = bool(
+            subprocess.check_output(
+                [
+                    "git",
+                    "status",
+                    "--porcelain",
+                    "--",
+                    "src",
+                    "pyproject.toml",
+                    "requirements.lock",
+                ],
+                cwd=root,
+                stderr=subprocess.DEVNULL,
+                text=True,
+            ).strip()
+        )
+        return {
+            **metadata,
+            "code_commit": commit,
+            "working_tree_dirty": dirty,
+            "source_tree_dirty": source_dirty,
+        }
     except (subprocess.SubprocessError, OSError):
-        return {"code_commit": None, "working_tree_dirty": None}
+        return {
+            **metadata,
+            "code_commit": None,
+            "working_tree_dirty": None,
+            "source_tree_dirty": None,
+        }
 
 
 def batch_directory(cfg: Config, output: str | Path | None = None) -> Path:
@@ -155,6 +187,7 @@ def persist_database(db_path: Path, manifest: dict, metrics: dict, result: Resul
 
 
 def write_run(cfg: Config, result: Result, batch: Path, db_path: Path | None = None) -> Path:
+    provenance = revision()
     directory = batch / result.policy
     directory.mkdir(exist_ok=False)
     write_csv(directory / "timeseries.csv", result.timeseries)
@@ -179,12 +212,14 @@ def write_run(cfg: Config, result: Result, batch: Path, db_path: Path | None = N
         "backend": f"{cfg.simulation.mobility_backend}/proxy",
         "simulation_backend": "python",
         "created_utc": datetime.now(timezone.utc).isoformat(),
-        **revision(),
+        **provenance,
         "versions": {
             "python": platform.python_version(),
             "handoverai": __version__,
             "PyYAML": importlib.metadata.version("PyYAML"),
             "matplotlib": importlib.metadata.version("matplotlib"),
+            "numpy": importlib.metadata.version("numpy"),
+            "sqlite": sqlite3.sqlite_version,
         },
         "platform": platform.platform(),
     }

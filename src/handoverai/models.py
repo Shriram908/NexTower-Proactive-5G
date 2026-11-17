@@ -31,6 +31,7 @@ class Vehicle:
     speed_mps: float
     path_xy_m: tuple[tuple[float, float], ...]
     initial_tower_id: str | None = None
+    active: bool = True
 
 
 @dataclass(frozen=True)
