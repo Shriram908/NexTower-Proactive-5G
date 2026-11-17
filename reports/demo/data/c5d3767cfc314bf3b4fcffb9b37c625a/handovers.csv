@@ -1,0 +1,8 @@
+time_s,vehicle_id,policy,from_tower,to_tower,status,reason,completed_s
+0.0,car_01,a3,,cell_A,attached,initial access or recovery,0.0
+26.5,car_01,a3,cell_A,cell_C,attempted,A3-style margin sustained for TTT,
+27.5,car_01,a3,cell_A,cell_C,success,target usable at completion,27.5
+29.5,car_01,a3,cell_C,cell_B,attempted,A3-style margin sustained for TTT,
+30.5,car_01,a3,cell_C,cell_B,success,target usable at completion,30.5
+58.0,car_01,a3,cell_B,cell_C,attempted,A3-style margin sustained for TTT,
+59.0,car_01,a3,cell_B,cell_C,success,target usable at completion,59.0

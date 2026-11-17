@@ -1,0 +1,4 @@
+time_s,vehicle_id,policy,from_tower,to_tower,status,reason,completed_s
+0.0,car_01,predictive,,cell_A,attached,initial access or recovery,0.0
+58.0,car_01,predictive,cell_A,cell_C,attempted,causal horizon score exceeds switching margin,
+59.0,car_01,predictive,cell_A,cell_C,success,target usable at completion,59.0

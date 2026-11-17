@@ -1,0 +1,12 @@
+time_s,vehicle_id,policy,from_tower,to_tower,status,reason,completed_s
+0.0,car_01,strongest,,cell_A,attached,initial access or recovery,0.0
+25.5,car_01,strongest,cell_A,,lost_link,no usable tower,
+26.0,car_01,strongest,,cell_C,attached,initial access or recovery,26.0
+26.5,car_01,strongest,cell_C,,lost_link,no usable tower,
+27.0,car_01,strongest,,cell_B,attached,initial access or recovery,27.0
+43.5,car_01,strongest,cell_B,,lost_link,no usable tower,
+47.0,car_01,strongest,,cell_C,attached,initial access or recovery,47.0
+58.5,car_01,strongest,cell_C,cell_B,attempted,strongest current proxy,
+59.5,car_01,strongest,cell_C,cell_B,success,target usable at completion,59.5
+61.5,car_01,strongest,cell_B,cell_C,attempted,strongest current proxy,
+62.5,car_01,strongest,cell_B,cell_C,success,target usable at completion,62.5

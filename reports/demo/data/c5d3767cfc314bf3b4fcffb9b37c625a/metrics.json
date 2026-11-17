@@ -1,0 +1,26 @@
+{
+  "attachment_count": 1,
+  "attempted_count": 3,
+  "coverage_fraction": 0.9555555555555556,
+  "duration_s": 90.0,
+  "failed_count": 0,
+  "handover_count": 3,
+  "incomplete_count": 0,
+  "mean_outage_episode_s": 1.3333333333333333,
+  "mean_quality_proxy_dbm": -72.86729977462998,
+  "observed_steps": 180,
+  "observed_vehicle_seconds": 90.0,
+  "outage_episode_lengths_s": [
+    2.0,
+    1.0,
+    1.0
+  ],
+  "outage_fraction": 0.044444444444444446,
+  "outage_seconds": 4.0,
+  "pingpong_count": 0,
+  "quality_sample_count": 172,
+  "rejected_count": 0,
+  "total_switch_interruption_s": 3.0,
+  "vehicle_count": 1,
+  "worst_outage_episode_s": 2.0
+}

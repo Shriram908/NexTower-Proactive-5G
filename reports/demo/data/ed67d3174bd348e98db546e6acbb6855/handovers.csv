@@ -1,0 +1,8 @@
+time_s,vehicle_id,policy,from_tower,to_tower,status,reason,completed_s
+0.0,car_01,a3,,cell_A,attached,initial access or recovery,0.0
+25.5,car_01,a3,cell_A,,lost_link,no usable tower,
+26.0,car_01,a3,,cell_C,attached,initial access or recovery,26.0
+26.5,car_01,a3,cell_C,,lost_link,no usable tower,
+27.0,car_01,a3,,cell_B,attached,initial access or recovery,27.0
+43.5,car_01,a3,cell_B,,lost_link,no usable tower,
+47.0,car_01,a3,,cell_C,attached,initial access or recovery,47.0

@@ -1,0 +1,19 @@
+{
+  "code_commit": "3f2821f5326195cbe8ae1772655e395ec4c7be6d",
+  "created_utc": "2026-11-17T21:43:09.446845+00:00",
+  "evaluated_rows": 3960,
+  "first_seed": 42,
+  "kind": "experiment_suite",
+  "note": "Synthetic proxy only. Seeds pair mobility and channel across policies. E2 duration covers full route plus 5 seconds; prediction error changes forecasts only.",
+  "schema_version": 1,
+  "seeds": 30,
+  "suite": "full",
+  "unique_simulations": 3000,
+  "variant_count": 33,
+  "versions": {
+    "PyYAML": "6.0.3",
+    "matplotlib": "3.10.8",
+    "python": "3.14.7"
+  },
+  "working_tree_dirty": true
+}

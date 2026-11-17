@@ -1,0 +1,23 @@
+time_s,vehicle_id,policy,from_tower,to_tower,status,reason,completed_s
+0.0,car_01,nearest,,cell_A,attached,initial access or recovery,0.0
+23.5,car_01,nearest,cell_A,cell_B,rejected,candidate unavailable or unusable,
+24.0,car_01,nearest,cell_A,cell_B,rejected,candidate unavailable or unusable,
+24.5,car_01,nearest,cell_A,cell_B,rejected,candidate unavailable or unusable,
+25.0,car_01,nearest,cell_A,cell_B,rejected,candidate unavailable or unusable,
+25.5,car_01,nearest,cell_A,,lost_link,no usable tower,
+26.0,car_01,nearest,,cell_C,attached,initial access or recovery,26.0
+26.5,car_01,nearest,cell_C,,lost_link,no usable tower,
+27.0,car_01,nearest,,cell_B,attached,initial access or recovery,27.0
+43.5,car_01,nearest,cell_B,,lost_link,no usable tower,
+47.0,car_01,nearest,,cell_C,attached,initial access or recovery,47.0
+49.0,car_01,nearest,cell_C,cell_B,rejected,candidate unavailable or unusable,
+49.5,car_01,nearest,cell_C,cell_B,rejected,candidate unavailable or unusable,
+50.0,car_01,nearest,cell_C,cell_B,rejected,candidate unavailable or unusable,
+50.5,car_01,nearest,cell_C,cell_B,rejected,candidate unavailable or unusable,
+51.0,car_01,nearest,cell_C,cell_B,rejected,candidate unavailable or unusable,
+51.5,car_01,nearest,cell_C,cell_B,rejected,candidate unavailable or unusable,
+52.0,car_01,nearest,cell_C,cell_B,rejected,candidate unavailable or unusable,
+52.5,car_01,nearest,cell_C,cell_B,rejected,candidate unavailable or unusable,
+53.0,car_01,nearest,cell_C,cell_B,rejected,candidate unavailable or unusable,
+53.5,car_01,nearest,cell_C,cell_B,rejected,candidate unavailable or unusable,
+54.0,car_01,nearest,cell_C,cell_B,rejected,candidate unavailable or unusable,

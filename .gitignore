@@ -9,6 +9,7 @@ dist/
 runs/
 *.sqlite3
 *.sqlite3-*
+!data/demo.sqlite3
 .DS_Store
 .env
 .env.*
