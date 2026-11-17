@@ -1,0 +1,28 @@
+name: Verify HandoverAI
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.14"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - run: python -m pip install -r requirements.lock
+      - run: python -m pip install --no-deps --no-build-isolation -e .
+      - run: python -m ruff check .
+      - run: python -m ruff format --check src tests scripts
+      - run: python -m pytest -q
+      - run: python -m handoverai validate --config configs/blocked_corridor.yaml
+      - run: python -m handoverai simulate --config configs/blocked_corridor.yaml --output runs/ci
+      - run: python -m handoverai report --runs runs/ci --output reports/ci
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smoke-report-py${{ matrix.python-version }}
+          path: reports/ci

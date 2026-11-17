@@ -1,0 +1,22 @@
+# Exact tested direct and transitive dependencies; Python 3.11+ / macOS ARM64 tested.
+# Install before: pip install --no-deps --no-build-isolation -e .
+build==1.4.0
+contourpy==1.3.3
+cycler==0.12.1
+fonttools==4.68.0
+iniconfig==2.3.1
+kiwisolver==1.5.1
+matplotlib==3.10.8
+numpy==2.3.5
+packaging==26.3
+pillow==13.0.0
+pluggy==1.7.0
+Pygments==2.21.0
+pyparsing==3.3.3
+pyproject_hooks==1.3.3
+pytest==9.0.2
+python-dateutil==4.0.0
+PyYAML==6.0.3
+ruff==0.15.1
+setuptools==82.0.0
+tzdata==2026.6
