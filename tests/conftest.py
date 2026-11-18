@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from handoverai.config import load_config
+from nextower.config import load_config
 
 ROOT = Path(__file__).resolve().parents[1]
 

@@ -215,7 +215,7 @@ def write_run(cfg: Config, result: Result, batch: Path, db_path: Path | None = N
         **provenance,
         "versions": {
             "python": platform.python_version(),
-            "handoverai": __version__,
+            "nextower": __version__,
             "PyYAML": importlib.metadata.version("PyYAML"),
             "matplotlib": importlib.metadata.version("matplotlib"),
             "numpy": importlib.metadata.version("numpy"),

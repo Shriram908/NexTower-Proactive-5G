@@ -2,8 +2,8 @@ from dataclasses import replace
 
 import pytest
 
-from handoverai.handover import Controller
-from handoverai.models import (
+from nextower.handover import Controller
+from nextower.models import (
     Blocker,
     Decision,
     HandoverState,
@@ -12,9 +12,9 @@ from handoverai.models import (
     State,
     Tower,
 )
-from handoverai.policies import A3, Context, Nearest, Strongest
-from handoverai.predictor import forecast, known_geometry
-from handoverai.proactive import PredictivePolicy
+from nextower.policies import A3, Context, Nearest, Strongest
+from nextower.predictor import forecast, known_geometry
+from nextower.proactive import PredictivePolicy
 
 
 def link(id, quality, usable=True):

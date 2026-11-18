@@ -30,8 +30,7 @@ management, per-cell capacity, packet traffic, RRC signaling, fading correlation
 sensor stack, acceleration, lane changing, learned trajectory prediction or real vehicle
 control. A logical tower association is only an abstract state. Rectangles may intersect
 roads/towers if deliberately configured; the validator checks shapes rather than urban realism.
-No external dataset is required and no model is trained. The AI in the project name refers
-to analytical look-ahead decision making.
+No external dataset is required and no model is trained. Tower selection uses analytical look-ahead decision making.
 
 Route projection assumes a known non-self-intersecting planned path. A current speed is held
 constant in the forecast. Dynamic geometry is predicted by persistence, so unseen appearances

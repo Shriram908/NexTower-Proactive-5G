@@ -6,7 +6,7 @@ import shutil
 import tempfile
 from pathlib import Path
 
-os.environ.setdefault("MPLCONFIGDIR", str(Path(tempfile.gettempdir()) / "handoverai-matplotlib"))
+os.environ.setdefault("MPLCONFIGDIR", str(Path(tempfile.gettempdir()) / "nextower-matplotlib"))
 import matplotlib
 
 matplotlib.use("Agg")

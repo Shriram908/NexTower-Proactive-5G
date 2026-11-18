@@ -12,7 +12,7 @@ from .storage import batch_directory, list_runs, write_run
 
 
 def parser() -> argparse.ArgumentParser:
-    root = argparse.ArgumentParser(description="HandoverAI synthetic handover research toolkit")
+    root = argparse.ArgumentParser(description="NexTower synthetic handover research toolkit")
     root.add_argument("--version", action="version", version=__version__)
     commands = root.add_subparsers(dest="command", required=True)
     for name, help_text in (
@@ -89,7 +89,7 @@ def main(argv: list[str] | None = None) -> int:
             print(json.dumps(list_runs(args.database), indent=2))
         return 0
     except (ValueError, OSError, sqlite3.Error) as exc:
-        root.exit(2, f"handoverai: {exc}\n")
+        root.exit(2, f"nextower: {exc}\n")
 
 
 if __name__ == "__main__":

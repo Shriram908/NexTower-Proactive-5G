@@ -1,0 +1,13 @@
+time_s,vehicle_id,policy,from_tower,to_tower,status,reason,completed_s
+0.0,car_01,nearest,,cell_A,attached,initial access or recovery,0.0
+23.5,car_01,nearest,cell_A,cell_B,rejected,candidate unavailable or unusable,
+24.0,car_01,nearest,cell_A,cell_B,rejected,candidate unavailable or unusable,
+24.5,car_01,nearest,cell_A,cell_B,rejected,candidate unavailable or unusable,
+25.0,car_01,nearest,cell_A,cell_B,rejected,candidate unavailable or unusable,
+25.5,car_01,nearest,cell_A,cell_B,rejected,candidate unavailable or unusable,
+26.0,car_01,nearest,cell_A,cell_B,rejected,candidate unavailable or unusable,
+26.5,car_01,nearest,cell_A,cell_B,rejected,candidate unavailable or unusable,
+27.0,car_01,nearest,cell_A,cell_B,attempted,nearest geometric tower,
+28.0,car_01,nearest,cell_A,cell_B,success,target usable at completion,28.0
+54.5,car_01,nearest,cell_B,cell_C,attempted,nearest geometric tower,
+55.5,car_01,nearest,cell_B,cell_C,success,target usable at completion,55.5

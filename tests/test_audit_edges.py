@@ -2,10 +2,10 @@ from dataclasses import replace
 
 import pytest
 
-from handoverai.config import from_dict, load_config
-from handoverai.engine import simulate
-from handoverai.mobility import synthetic_trace
-from handoverai.storage import revision
+from nextower.config import from_dict, load_config
+from nextower.engine import simulate
+from nextower.mobility import synthetic_trace
+from nextower.storage import revision
 
 
 @pytest.mark.parametrize("value", [True, 1.0, "1"])
@@ -69,8 +69,8 @@ def test_source_provenance_is_stable():
 
 
 def test_no_towers_report_remains_readable(cfg, tmp_path):
-    from handoverai.reporting import build_report
-    from handoverai.storage import batch_directory, write_run
+    from nextower.reporting import build_report
+    from nextower.storage import batch_directory, write_run
 
     cfg = replace(cfg, towers=(), simulation=replace(cfg.simulation, duration_s=1))
     batch = batch_directory(cfg, tmp_path / "runs")
@@ -79,7 +79,7 @@ def test_no_towers_report_remains_readable(cfg, tmp_path):
 
 
 def test_benchmark_manifest_is_not_misread_as_a_simulation(tmp_path):
-    from handoverai.reporting import collect
+    from nextower.reporting import collect
 
     (tmp_path / "manifest.json").write_text('{"kind":"experiment_suite"}')
     with pytest.raises(ValueError, match="no simulation runs"):
@@ -87,7 +87,7 @@ def test_benchmark_manifest_is_not_misread_as_a_simulation(tmp_path):
 
 
 def test_benchmark_rejects_zero_seeds(cfg, tmp_path):
-    from handoverai.experiments import benchmark
+    from nextower.experiments import benchmark
 
     with pytest.raises(ValueError, match="seeds"):
         benchmark(cfg, 0, "quick", tmp_path / "benchmark")

@@ -35,7 +35,7 @@ tested. The lock's distributions declare Python 3.11 compatibility.
 | Independent clean checkout | installed from project metadata; validate/simulate/report succeeded |
 | `python -m build --no-isolation` | wheel and source distribution built successfully |
 | Source distribution contents | scenario YAMLs and `tests/conftest.py` included |
-| Wheel contents | `handoverai/dashboard.html` included |
+| Wheel contents | `nextower/dashboard.html` included |
 | Wheel installation | installed into independent environment; four-policy simulate/report succeeded outside project cwd |
 | Full paired research suite | 30 seeds × 33 variants × 4 policies = 3,960 output rows |
 | Benchmark caching | 3,000 unique simulations; duplicate input/policy cases reused |

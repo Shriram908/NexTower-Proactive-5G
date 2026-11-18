@@ -2,7 +2,7 @@ import copy
 
 import pytest
 
-from handoverai.config import from_dict, load_config
+from nextower.config import from_dict, load_config
 
 
 @pytest.mark.parametrize(

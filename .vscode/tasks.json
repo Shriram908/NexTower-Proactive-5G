@@ -1,8 +1,8 @@
 {
   "version": "2.0.0",
   "tasks": [
-    {"label": "HandoverAI: tests", "type": "process", "command": "${workspaceFolder}/.venv/bin/python", "args": ["-m", "pytest", "-q"], "group": {"kind": "test", "isDefault": true}, "problemMatcher": []},
-    {"label": "HandoverAI: demo", "type": "process", "command": "sh", "args": ["scripts/demo.sh"], "problemMatcher": []},
-    {"label": "HandoverAI: lint", "type": "process", "command": "${workspaceFolder}/.venv/bin/python", "args": ["-m", "ruff", "check", "."], "problemMatcher": []}
+    {"label": "NexTower: tests", "type": "process", "command": "${workspaceFolder}/.venv/bin/python", "args": ["-m", "pytest", "-q"], "group": {"kind": "test", "isDefault": true}, "problemMatcher": []},
+    {"label": "NexTower: demo", "type": "process", "command": "sh", "args": ["scripts/demo.sh"], "problemMatcher": []},
+    {"label": "NexTower: lint", "type": "process", "command": "${workspaceFolder}/.venv/bin/python", "args": ["-m", "ruff", "check", "."], "problemMatcher": []}
   ]
 }

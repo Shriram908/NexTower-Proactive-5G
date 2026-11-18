@@ -3,9 +3,9 @@ from dataclasses import replace
 
 import pytest
 
-from handoverai.channel import keyed_normal, observe
-from handoverai.geometry import intersects_rectangle, is_blocked
-from handoverai.models import Blocker, PositionSample, Tower
+from nextower.channel import keyed_normal, observe
+from nextower.geometry import intersects_rectangle, is_blocked
+from nextower.models import Blocker, PositionSample, Tower
 
 
 @pytest.mark.parametrize(

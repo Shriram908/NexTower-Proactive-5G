@@ -1,6 +1,6 @@
 # Architecture and implementation guide
 
-HandoverAI is a discrete-time research simulator. It tests tower-selection decisions under
+NexTower is a discrete-time research simulator. It tests tower-selection decisions under
 known route geometry, using an explicit synthetic power model. It does not connect to a modem.
 
 ```mermaid

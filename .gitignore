@@ -17,3 +17,12 @@ runs/
 *.zip
 *.bundle
 tmp/
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+node_modules/

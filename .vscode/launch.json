@@ -2,20 +2,20 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "HandoverAI: simulate all policies",
+      "name": "NexTower: simulate all policies",
       "type": "debugpy",
       "request": "launch",
-      "module": "handoverai",
+      "module": "nextower",
       "args": ["simulate", "--config", "configs/blocked_corridor.yaml", "--policy", "all"],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
       "justMyCode": true
     },
     {
-      "name": "HandoverAI: validate scenario",
+      "name": "NexTower: validate scenario",
       "type": "debugpy",
       "request": "launch",
-      "module": "handoverai",
+      "module": "nextower",
       "args": ["validate", "--config", "configs/blocked_corridor.yaml"],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal"

@@ -1,4 +1,4 @@
-name: Verify HandoverAI
+name: Verify NexTower
 on: [push, pull_request, workflow_dispatch]
 permissions:
   contents: read
@@ -19,9 +19,9 @@ jobs:
       - run: python -m ruff check .
       - run: python -m ruff format --check src tests scripts
       - run: python -m pytest -q
-      - run: python -m handoverai validate --config configs/blocked_corridor.yaml
-      - run: python -m handoverai simulate --config configs/blocked_corridor.yaml --output runs/ci
-      - run: python -m handoverai report --runs runs/ci --output reports/ci
+      - run: python -m nextower validate --config configs/blocked_corridor.yaml
+      - run: python -m nextower simulate --config configs/blocked_corridor.yaml --output runs/ci
+      - run: python -m nextower report --runs runs/ci --output reports/ci
       - uses: actions/upload-artifact@v4
         with:
           name: smoke-report-py${{ matrix.python-version }}

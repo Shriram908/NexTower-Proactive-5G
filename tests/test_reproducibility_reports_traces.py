@@ -4,14 +4,14 @@ from dataclasses import replace
 
 import pytest
 
-from handoverai.cli import main
-from handoverai.engine import prepare_world, simulate
-from handoverai.experiments import benchmark, variants
-from handoverai.metrics import calculate
-from handoverai.mobility import position_at, synthetic_trace
-from handoverai.models import Vehicle
-from handoverai.storage import batch_directory, write_run
-from handoverai.traces import COLUMNS, export_trace, load_trace
+from nextower.cli import main
+from nextower.engine import prepare_world, simulate
+from nextower.experiments import benchmark, variants
+from nextower.metrics import calculate
+from nextower.mobility import position_at, synthetic_trace
+from nextower.models import Vehicle
+from nextower.storage import batch_directory, write_run
+from nextower.traces import COLUMNS, export_trace, load_trace
 
 
 def test_t15_exact_csv_reproducibility(cfg, tmp_path):
@@ -92,7 +92,7 @@ def test_route_turn_endpoint_stop():
 
 
 def test_t23_report_reads_saved_traces_and_detects_tampering(cfg, tmp_path):
-    from handoverai.reporting import build_report
+    from nextower.reporting import build_report
 
     cfg = replace(cfg, simulation=replace(cfg.simulation, duration_s=3))
     batch = batch_directory(cfg, tmp_path / "runs")

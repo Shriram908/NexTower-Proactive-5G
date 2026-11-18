@@ -3,7 +3,7 @@ requires = ["setuptools==82.0.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "handoverai"
+name = "nextower"
 version = "1.0.0"
 description = "Reproducible geometry-aware handover research for connected vehicles"
 readme = "README.md"
@@ -16,7 +16,7 @@ dependencies = ["PyYAML==6.0.3", "matplotlib==3.10.8"]
 dev = ["pytest==9.0.2", "ruff==0.15.1", "build==1.4.0"]
 
 [project.scripts]
-handoverai = "handoverai.cli:main"
+nextower = "nextower.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -33,4 +33,4 @@ line-length = 100
 select = ["E4", "E7", "E9", "F", "I"]
 
 [tool.setuptools.package-data]
-handoverai = ["dashboard.html"]
+nextower = ["dashboard.html"]

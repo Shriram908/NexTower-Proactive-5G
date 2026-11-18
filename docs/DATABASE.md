@@ -4,7 +4,7 @@ Every `simulate` command creates `runs/results.sqlite3` unless `--output`, `--da
 `--no-database` changes this. With `--output runs/demo`, the default database is
 `runs/demo/results.sqlite3`. No database server, credentials, migrations service or Homebrew
 package is required: Python includes SQLite. Schema version is stored as `PRAGMA user_version=1`.
-`src/handoverai/storage.py:SCHEMA` is the authoritative DDL.
+`src/nextower/storage.py:SCHEMA` is the authoritative DDL.
 
 | Table | Key | Purpose |
 |---|---|---|
@@ -19,7 +19,7 @@ Runs are indexed by scenario/policy/seed. Simulations on the same scenario get u
 and UUIDs, so repeated experiments coexist.
 
 ```sh
-python -m handoverai db --database runs/results.sqlite3
+python -m nextower db --database runs/results.sqlite3
 sqlite3 runs/results.sqlite3 '.tables'
 sqlite3 runs/results.sqlite3 'PRAGMA integrity_check;'
 sqlite3 runs/results.sqlite3 'PRAGMA foreign_key_check;'

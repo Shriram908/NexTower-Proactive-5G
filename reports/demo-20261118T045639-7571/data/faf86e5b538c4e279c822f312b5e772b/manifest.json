@@ -1,0 +1,24 @@
+{
+  "backend": "synthetic/proxy",
+  "code_commit": "e2f882706604396945b69da18b17e3c9fee99cf4",
+  "config_hash": "53793717d544399b8ea9a03be8bfc3a5c1b3f1d3fbd076fca65037d90485b627",
+  "created_utc": "2026-11-18T04:56:40.126150+00:00",
+  "platform": "macOS-15.7.2-arm64-arm-64bit-Mach-O",
+  "policy": "nearest",
+  "run_id": "faf86e5b538c4e279c822f312b5e772b",
+  "scenario_id": "blocked_corridor_v1",
+  "schema_version": 1,
+  "seed": 42,
+  "simulation_backend": "python",
+  "source_sha256": "72c106b8ead6b3883f0d966194a1586279d540054ea1c1702773e841ce058aaa",
+  "source_tree_dirty": false,
+  "versions": {
+    "PyYAML": "6.0.3",
+    "handoverai": "1.0.0",
+    "matplotlib": "3.10.8",
+    "numpy": "2.3.5",
+    "python": "3.14.7",
+    "sqlite": "3.54.1"
+  },
+  "working_tree_dirty": false
+}

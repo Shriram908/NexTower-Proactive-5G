@@ -4,11 +4,11 @@ from dataclasses import replace
 
 import pytest
 
-from handoverai.config import from_dict
-from handoverai.engine import prepare_world, simulate
-from handoverai.metrics import calculate, paired_summary
-from handoverai.models import Tower
-from handoverai.storage import batch_directory, list_runs, persist_database, read_csv, write_run
+from nextower.config import from_dict
+from nextower.engine import prepare_world, simulate
+from nextower.metrics import calculate, paired_summary
+from nextower.models import Tower
+from nextower.storage import batch_directory, list_runs, persist_database, read_csv, write_run
 
 
 def metrics(result, cfg):

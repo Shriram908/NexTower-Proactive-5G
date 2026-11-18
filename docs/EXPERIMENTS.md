@@ -9,10 +9,10 @@ The hypothesis concerns an abstract model; no real 5G performance claim follows 
 ## Canonical examples
 
 ```sh
-python -m handoverai simulate --config configs/blocked_corridor.yaml --output runs/corridor
-python -m handoverai simulate --config configs/no_blockage.yaml --output runs/open-road
-python -m handoverai simulate --config configs/dynamic_blocker.yaml --output runs/temporary
-python -m handoverai report --runs runs/corridor --output reports/corridor-new
+python -m nextower simulate --config configs/blocked_corridor.yaml --output runs/corridor
+python -m nextower simulate --config configs/no_blockage.yaml --output runs/open-road
+python -m nextower simulate --config configs/dynamic_blocker.yaml --output runs/temporary
+python -m nextower report --runs runs/corridor --output reports/corridor-new
 open reports/corridor-new/index.html
 ```
 
@@ -29,7 +29,7 @@ provides the exact CSV/JSON used for its figures and metrics.
 ## Paired study, E1-E6 and F5
 
 ```sh
-python -m handoverai benchmark \
+python -m nextower benchmark \
   --config configs/blocked_corridor.yaml \
   --set channel.shadowing_std_db=2.0 \
   --seeds 30 --suite full --output reports/research-reproduced
@@ -81,10 +81,10 @@ from pathlib import Path
 rows = list(csv.DictReader(open('reports/research/results.csv')))
 selected = next(r for r in rows if r['experiment']=='E1' and r['policy']=='predictive')
 configs = json.loads(Path('reports/research/configs.json').read_text())
-Path('/tmp/handoverai-replay.yaml').write_text(yaml.safe_dump(configs[selected['config_hash']]))
+Path('/tmp/nextower-replay.yaml').write_text(yaml.safe_dump(configs[selected['config_hash']]))
 print(selected)
 PY
-python -m handoverai simulate --config /tmp/handoverai-replay.yaml --policy predictive
+python -m nextower simulate --config /tmp/nextower-replay.yaml --policy predictive
 ```
 
 The saved config hash and policy identify the complete input. UUIDs/timestamps differ between
